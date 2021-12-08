@@ -45,8 +45,7 @@ Run the SQL codes from the file ‘RQ1.txt’ on top of the sotorrent dataset us
     * Run 'Final GitCode.ipynb' script on FinalwithSOCodeandGitCode.csv to get body of final version of git code. Remove rows where GitCode is empty.
     
   * ### Trimming:
-    * Now we need to make sure that both the files have the same number of rows and referring to the same git projects, repositories, post id’s etc. and the only thing that is different between them is the SOCode and GitCode column (initial vs final versions).
-For this, you can run sql on Google big query or write a script. We used the free version of Google Big Query and had to divide it into multiple chunks to do so.
+    * Now we need to make sure that both the files have the same number of rows and each row is referring to the same git projects, repositories, post id’s etc. that is, the only difference between them are the SOCode and GitCode columns (initial vs final versions). For this, you can write a script or follow the instructions on how we used the free version of Google Big Query mentioned in RQ2 Trimming.txt
 
   * ### Generating .txt code files:
     * To reproduce the text file pairs that are present inside the ‘Initial’ Folder, rename InitialwithSOCodeandGitCode.csv to InitialSO.csv and run the script ‘convert to file InitialGit’. Make sure to change the path to the directory that has your InitialSO.csv which should also be the directory where you want the script to generate the .txt file pairs. Next, rename ‘InitialSO.csv’ to ‘InitialGit.csv’ and run the script ‘convert to file InitialSO’.
