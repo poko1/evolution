@@ -1,0 +1,20 @@
+1. Remove the SOCode and GitCode column from both InitialwithSOCodeandGitCode.csv and FinalwithSOCodeandGitCode.csv.
+Then upload both the files on Google Big Query and run the following SQL command:
+
+SELECT f.PostId, f.Repo, f.RepoName, f.FileId,   f.SOUrl,    f.GHUrl,    f.Hash, f.CommiterDate, f.CreationDate, f.DateDiff
+FROM `keen-button-330723.Trim.InitialwithSOCodeandGitCode` As i,  
+`keen-button-330723.Trim.FinalwithSOCodeandGitCode` AS f
+WHERE i.PostId=f.PostId and 
+i.Repo=f.Repo and 
+i.RepoName=f.RepoName and 
+i.FileId=f.FileId and 
+i.SOUrl=f.SOUrl and 
+i.GHUrl=f.GHUrl and
+i.CommitHash=f.Hash and 
+i.CommiterDate=f.CommiterDate and
+i.CreationDate=f.CreationDate and 
+i.DateDiff=f.DateDiff
+
+Download the table twice and rename them to 'InitialwithSOCodeandGitCode.csv' and 'FinalwithSOCodeandGitCode.csv'. Now repeat step 2 and 3
+again to generate Final and Initial Versions of SO and Git Code.
+ 
