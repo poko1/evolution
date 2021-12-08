@@ -1,0 +1,8 @@
+,SOCode
+3977,"if(parseInt(yourVal, 10) > 0) {
+  ...numeric value
+}
+ function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+ "

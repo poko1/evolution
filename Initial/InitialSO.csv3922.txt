@@ -1,0 +1,3 @@
+,SOCode
+3922,"var newFunc = oldFunc.bind({}); //clones the function with '{}' acting as it's new 'this' parameter
+ "

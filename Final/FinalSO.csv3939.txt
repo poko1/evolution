@@ -1,0 +1,18 @@
+,SOCode
+3939,"var str = ""123456789"";
+var chunks = [];
+var chunkSize = 2;
+
+while (str) {
+    if (str.length < chunkSize) {
+        chunks.push(str);
+        break;
+    }
+    else {
+        chunks.push(str.substr(0, chunkSize));
+        str = str.substr(chunkSize);
+    }
+}
+
+alert(chunks); // chunks == 12,34,56,78,9
+ "

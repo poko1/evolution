@@ -1,0 +1,17 @@
+,SOCode
+3824,"setInterval function timeChanged(delta) {
+  // Whatever
+}
+
+setInterval(function timeChecker() {
+  var oldTime = timeChecker.oldTime || new Date(),
+      newTime = new Date(),
+      timeDiff = newTime - oldTime;
+
+  timeChecker.oldTime = newTime;
+
+  if (Math.abs(timeDiff) >= 5000) { // Five second leniency
+    timeChanged(timeDiff);
+  }
+}, 500);
+ "

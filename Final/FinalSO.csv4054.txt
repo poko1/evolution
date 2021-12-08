@@ -1,0 +1,25 @@
+,SOCode
+4054,"concat var arrays = [
+  [""$6""],
+  [""$12""],
+  [""$25""],
+  [""$25""],
+  [""$18""],
+  [""$22""],
+  [""$10""]
+];
+var merged = [].concat.apply([], arrays);
+
+console.log(merged); apply concat var merged2 = [].concat([""$6""], [""$12""], [""$25""], [""$25""], [""$18""], [""$22""], [""$10""]);
+ Array.prototype.flat() const arrays = [
+      [""$6""],
+      [""$12""],
+      [""$25""],
+      [""$25""],
+      [""$18""],
+      [""$22""],
+      [""$10""]
+    ];
+const merge3 = arrays.flat(1); //The depth level specifying how deep a nested array structure should be flattened. Defaults to 1.
+console.log(merge3);
+     "

@@ -1,0 +1,21 @@
+,SOCode
+5056,"$sth = $dbh->prepare ($stmt);
+$sth->execute ();
+if ($sth->columnCount () == 0)
+{
+    # there is no result set, so the statement modifies rows
+     printf (""Number of rows affected: %d\n"", $sth->rowCount ());
+}
+else
+{
+    # there is a result set
+    printf (""Number of columns in result set: %d\n"", $sth->columnCount ());
+    $count = 0;
+    while ($row = $sth->fetch (PDO::FETCH_NUM))
+    {
+    # display column values separated by commas
+       print (join ("", "", $row) . ""\n"");
+       $count++;
+    }
+}
+ "

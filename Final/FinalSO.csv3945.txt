@@ -1,0 +1,13 @@
+,SOCode
+3945,"_version.py __version__ pkg_resources myniftyapp/_version.py __version__ = ""3.6.5""
+ import re
+VERSIONFILE=""myniftyapp/_version.py""
+verstrline = open(VERSIONFILE, ""rt"").read()
+VSRE = r""^__version__ = ['\""]([^'\""]*)['\""]""
+mo = re.search(VSRE, verstrline, re.M)
+if mo:
+    verstr = mo.group(1)
+else:
+    raise RuntimeError(""Unable to find version string in %s."" % (VERSIONFILE,))
+ setup() myniftyapp/__init__.py from _version import __version__
+ "

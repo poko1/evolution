@@ -1,0 +1,4 @@
+,SOCode
+4944,"// var isWebkit = 'webkitRequestAnimationFrame' in window; // deprecated
+var isWebkit = 'WebkitAppearance' in document.documentElement.style
+ webkit jQuery.browser jQuery User Agent "

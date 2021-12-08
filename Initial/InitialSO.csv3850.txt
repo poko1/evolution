@@ -1,0 +1,29 @@
+,SOCode
+3850,"contents() find() var getTextNodesIn = function(el) {
+    return $(el).find("":not(iframe)"").addBack().contents().filter(function() {
+        return this.nodeType == 3;
+    });
+};
+
+getTextNodesIn(el);
+ addBack() andSelf() andSelf() addBack() contents() includeWhitespaceNodes function getTextNodesIn(node, includeWhitespaceNodes) {
+    var textNodes = [], nonWhitespaceMatcher = /\S/;
+
+    function getTextNodes(node) {
+        if (node.nodeType == 3) {
+            if (includeWhitespaceNodes || nonWhitespaceMatcher.test(node.nodeValue)) {
+                textNodes.push(node);
+            }
+        } else {
+            for (var i = 0, len = node.childNodes.length; i < len; ++i) {
+                getTextNodes(node.childNodes[i]);
+            }
+        }
+    }
+
+    getTextNodes(node);
+    return textNodes;
+}
+
+getTextNodesIn(el);
+ "

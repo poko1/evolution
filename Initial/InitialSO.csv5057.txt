@@ -1,0 +1,2 @@
+,SOCode
+5057,window iframe existing iframe .print() .execCommand('print') print() print() documents print() document print() execCommand('print') execCommand() false execCommand('print') false print() iframe window.frames[name] window.frames(id) 

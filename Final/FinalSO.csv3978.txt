@@ -1,0 +1,63 @@
+,SOCode
+3978,"src <img> XMLHttpRequest xhr XMLHttpRequest responseType arraybuffer var md5sum = Crypto.MD5( new Uint8Array(xhr.response) );
+ // Example: Grab the first <img> from the document if it exists.
+var img = document.images[0];
+if (img) {
+    // Send the target of the image:
+    chrome.runtime.sendMessage({method: 'postUrl', url: img.src});
+}
+ chrome.runtime.onMessage.addListener(function(request) {
+    if (request.method == 'postUrl') {
+        var worker = new Worker('worker.js');
+        worker.postMessage(request.url);
+    }
+});
+ // Define the FormData object for the Web worker:
+importScripts('xhr2-FormData.js')
+
+// Note: In a Web worker, the global object is called ""self"" instead of ""window""
+self.onmessage = function(event) {
+    var resourceUrl = event.data;   // From the background page
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', resourceUrl, true);
+
+    // Response type arraybuffer - XMLHttpRequest 2
+    xhr.responseType = 'arraybuffer';
+    xhr.onload = function(e) {
+        if (xhr.status == 200) {
+            nextStep(xhr.response);
+        }
+    };
+    xhr.send();
+};
+function nextStep(arrayBuffer) {
+    var xhr = new XMLHttpRequest();
+    // Using FormData polyfill for Web workers!
+    var fd = new FormData();
+    fd.append('server-method', 'upload');
+
+    // The native FormData.append method ONLY takes Blobs, Files or strings
+    // The FormData for Web workers polyfill can also deal with array buffers
+    fd.append('file', arrayBuffer);
+
+    xhr.open('POST', 'http://YOUR.DOMAIN.HERE/posturl.php', true);
+
+    // Transmit the form to the server
+    xhr.send(fd);
+};
+ FormData FormData multipart/form-data importScripts('xhr2-FormData.js') {
+  ""name"": ""Rob W - Demo: Scraping images and posting data"",
+  ""version"": ""1.0"",
+  ""manifest_version"": 2,
+  ""content_scripts"": [
+    {
+      ""matches"": [""http://*/*"", ""https://*/*""],
+      ""js"": [""contentscript.js""]
+    }
+   ],
+   ""background"": {
+       ""scripts"": [""background.js""]
+   },
+   ""permissions"": [""http://*/*"", ""https://*/*""]
+}
+ chrome.runtime.onMessage XMLHttpRequest FormData "

@@ -1,0 +1,17 @@
+,SOCode
+5089,"var fs = require('fs');
+var path = require('path');
+
+function fileExistsWithCaseSync(filepath) {
+    var dir = path.dirname(filepath);
+    if (dir === '/' || dir === '.') return true;
+    var filenames = fs.readdirSync(dir);
+    if (filenames.indexOf(path.basename(filepath)) === -1) {
+        return false;
+    }
+    return fileExistsWithCaseSync(dir);
+}
+
+console.log(fileExistsWithCaseSync(__dirname + '/README.txt')) // false
+console.log(fileExistsWithCaseSync(__dirname + '/readme.txt')) // true
+ Foo.js foo.js "

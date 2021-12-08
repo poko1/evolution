@@ -1,0 +1,39 @@
+,SOCode
+882,"function selectText(node) {
+    node = document.getElementById(node);
+
+    if (document.body.createTextRange) {
+        const range = document.body.createTextRange();
+        range.moveToElementText(node);
+        range.select();
+    } else if (window.getSelection) {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    } else {
+        console.warn(""Could not select text in node: Unsupported browser."");
+    }
+}
+
+const clickable = document.querySelector('.click-me');
+clickable.addEventListener('click', () => selectText('target')); <div id=""target""><p>Some text goes here!</p><p>Moar text!</p></div>
+<p class=""click-me"">Click me!</p> function SelectText(element) {
+    var text = document.getElementById(element);
+    if ($.browser.msie) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if ($.browser.mozilla || $.browser.opera) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    } else if ($.browser.safari) {
+        var selection = window.getSelection();
+        selection.setBaseAndExtent(text, 0, text, 1);
+    }
+}
+ "

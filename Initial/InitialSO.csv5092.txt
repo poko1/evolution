@@ -1,0 +1,30 @@
+,SOCode
+5092,"HTMLElement() HTMLUnknownElement() document.registerElement('x-my-element');
+document.createElement('x-my-element').constructor
+//⇒ function x-my-element() { [native code] }
+document.createElement('x-my-element-not-registered').constructor
+//⇒ function HTMLElement() { [native code] }
+ var isRegistered = function(name) {
+  return document.createElement(name).constructor !== HTMLElement;
+}
+ String.prototype.isRegistered = function() { 
+  return document.createElement(this).constructor !== HTMLElement; 
+}
+'x-my-element'.isRegistered()
+//⇒ true
+'xx-my-element'.isRegistered()
+//⇒ false
+ String.prototype.wasRegistered = function() { 
+  switch(document.createElement(this).constructor) {
+    case HTMLElement: return false; 
+    case HTMLUnknownElement: return undefined; 
+  }
+  return true;
+}
+'x-my-element'.wasRegistered()
+//⇒ true
+'xx-my-element'.wasRegistered()
+//⇒ false
+'xx'.wasRegistered()
+//⇒ undefined
+ "

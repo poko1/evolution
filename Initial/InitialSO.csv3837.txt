@@ -1,0 +1,7 @@
+,SOCode
+3837,"array_splice $original = array( 'a','b','c','d','e' );
+$inserted = array( 'x' );
+ 
+array_splice( $original, 3, 0, $inserted ); // splice in at position 3
+// $original is now a b c x d e
+ "

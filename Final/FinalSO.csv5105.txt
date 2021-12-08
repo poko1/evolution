@@ -1,0 +1,51 @@
+,SOCode
+5105,"object_hook import json
+
+def json_load_byteified(file_handle):
+    return _byteify(
+        json.load(file_handle, object_hook=_byteify),
+        ignore_dicts=True
+    )
+
+def json_loads_byteified(json_text):
+    return _byteify(
+        json.loads(json_text, object_hook=_byteify),
+        ignore_dicts=True
+    )
+
+def _byteify(data, ignore_dicts = False):
+    if isinstance(data, str):
+        return data
+
+    # if this is a list of values, return list of byteified values
+    if isinstance(data, list):
+        return [ _byteify(item, ignore_dicts=True) for item in data ]
+    # if this is a dictionary, return dictionary of byteified keys and values
+    # but only if we haven't already byteified it
+    if isinstance(data, dict) and not ignore_dicts:
+        return {
+            _byteify(key, ignore_dicts=True): _byteify(value, ignore_dicts=True)
+            for key, value in data.items() # changed to .items() for python 2.7/3
+        }
+
+    # python 3 compatible duck-typing
+    # if this is a unicode string, return its string representation
+    if str(type(data)) == ""<type 'unicode'>"":
+        return data.encode('utf-8')
+
+    # if it's anything else, return it in its original form
+    return data
+ >>> <b><i>json_loads_byteified('{""Hello"": ""World""}')</i></b>
+{'Hello': 'World'}
+>>> <b><i>json_loads_byteified('""I am a top-level string""')</i></b>
+'I am a top-level string'
+>>> <b><i>json_loads_byteified('7')</i></b>
+7
+>>> <b><i>json_loads_byteified('[""I am inside a list""]')</i></b>
+['I am inside a list']
+>>> <b><i>json_loads_byteified('[[[[[[[[""I am inside a big nest of lists""]]]]]]]]')</i></b>
+[[[[[[[['I am inside a big nest of lists']]]]]]]]
+>>> <b><i>json_loads_byteified('{""foo"": ""bar"", ""things"": [7, {""qux"": ""baz"", ""moo"": {""cow"": [""milk""]}}]}')</i></b>
+{'things': [7, {'qux': 'baz', 'moo': {'cow': ['milk']}}], 'foo': 'bar'}
+>>> <b><i>json_load_byteified(open('somefile.json'))</i></b>
+{'more json': 'from a file'} object_hook json.load json.loads object_hook dict dict object_hook object_hook ignore_dicts _byteify object_hook dict ignore_dicts _byteify dict json_load_byteified json_loads_byteified _byteify ignore_dicts=True json.load json.loads dict "

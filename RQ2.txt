@@ -1,0 +1,61 @@
+1. Upload the FirstCommitDB table on Google Big Query and run the following SQL to get GHURL for each git project:
+
+SELECT a.PostId, a.Repo, a.RepoName, a.FileId, a.SOUrl, GHUrl, a.Hash, CommiterDate
+ FROM `my-project-320919.First.FirstCommitDB` AS a,
+`sotorrent-org.2020_01_24.PostReferenceGH` AS b
+WHERE 
+a.PostId=b.PostId and 
+a.Repo=b.Repo and 
+a.RepoName=b.RepoName and 
+a.FileId=b.FileId
+
+Download the table and save it as ‘getting_ghurl.csv’
+
+
+
+2. Similarly, upload this file on Google Big Query and run the following SQL to find Revision GUUID and Creation Dates of Stack Overflow Posts:
+
+SELECT a.PostId, a.Repo, a.RepoName, a.FileId,   a.SOUrl, GHUrl,  a.Hash, CommiterDate, RevisionGUID, CreationDate
+FROM `my-project-320919.First.getting_ghurl` AS a,
+`sotorrent-org.2020_01_24.PostHistory` AS b
+where 
+a.PostId=b.PostId
+
+Download the table and save it as ‘moreinfo.csv’. 
+
+
+
+
+3. Similarly, upload this file on Google Big Query and run the following SQL to calculate the date difference between Creation and Commiter Date:
+
+SELECT i.PostId, i.Repo,    i.RepoName, i.FileId,   i.SOUrl,    i.GHUrl,    i.Hash, i.CommiterDate, i.CreationDate, DATE_DIFF(i.CommiterDate, i.CreationDate, minute) as DateDiff, i.RevisionGUID
+FROM `my-project-320919.First.moreinfo` AS i
+WHERE DateDiff>0
+
+Download the table and save it as 'datediff.csv'
+
+
+
+
+4. Similarly, upload this file on Google Big Query and run the following SQL to find Stack Overflow Posts whose creation/revision date is closet to commit date of the git project:
+
+SELECT tbl.*
+FROM `my-project-320919.First.datediff` AS tbl
+  INNER JOIN
+  (
+    SELECT PostId, Repo, RepoName,FileId,SOUrl, GHUrl, a.Hash, CommiterDate, MIN(DateDiff) MinPoint
+    FROM `my-project-320919.First.datediff` AS a
+    GROUP BY PostId,Repo, RepoName, FileId, SOUrl, GHUrl, a.Hash, CommiterDate
+  ) tbl1
+  ON tbl1.FileId = tbl.FileId
+  AND tbl1.PostId = tbl.PostId
+  AND tbl1.Repo = tbl.Repo
+  AND tbl1.RepoName = tbl.RepoName
+  AND tbl1.PostId = tbl.PostId
+WHERE tbl1.MinPoint = tbl.DateDiff
+
+ORDER BY PostId ASC
+
+Download the table and save it as 'file_found.csv'
+
+

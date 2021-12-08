@@ -1,0 +1,10 @@
+,SOCode
+830,"function escapeHTML(s) {
+    return s.split('&').join('&amp;').split('<').join('&lt;').split('""').join('&quot;');
+}
+function qualifyURL(url) {
+    var el= document.createElement('div');
+    el.innerHTML= '<a href=""'+escapeHTML(url)+'"">x</a>';
+    return el.firstChild.href;
+}
+ "

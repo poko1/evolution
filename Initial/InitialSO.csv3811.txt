@@ -1,0 +1,20 @@
+,SOCode
+3811,"var r = Raphael(500, 500);
+var t = r.text(100, 100).attr('text-anchor', 'start');
+var maxWidth = 100;
+
+var content = ""Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate. "";
+var words = content.split("" "");
+
+var tempText = """";
+for (var i=0; i<words.length; i++) {
+  t.attr(""text"", tempText + "" "" + words[i]);
+  if (t.getBBox().width > maxWidth) {
+    tempText += ""\n"" + words[i];
+  } else {
+    tempText += "" "" + words[i];
+  }
+}
+
+t.attr(""text"", tempText.substring(1));
+ "

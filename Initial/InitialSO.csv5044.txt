@@ -1,0 +1,41 @@
+,SOCode
+5044,"priority element.removeAttr(""common-things""); element.removeAttr(""data-common-things""); data-common-things angular.module('app')
+  .directive('commonThings', function ($compile) {
+    return {
+      restrict: 'A',
+      replace: false, 
+      terminal: true, //this setting is important, see explanation below
+      priority: 1000, //this setting is important, see explanation below
+      compile: function compile(element, attrs) {
+        element.attr('tooltip', '{{dt()}}');
+        element.attr('tooltip-placement', 'bottom');
+        element.removeAttr(""common-things""); //remove the attribute to avoid indefinite loop
+        element.removeAttr(""data-common-things""); //also remove the same attribute with data- prefix in case users specify data-common-things in the html
+
+        return {
+          pre: function preLink(scope, iElement, iAttrs, controller) {  },
+          post: function postLink(scope, iElement, iAttrs, controller) {  
+            $compile(iElement)(scope);
+          }
+        };
+      }
+    };
+  });
+ angular.module('app')
+  .directive('commonThings', function ($compile) {
+    return {
+      restrict: 'A',
+      replace: false,
+      terminal: true,
+      priority: 1000,
+      link: function link(scope,element, attrs) {
+        element.attr('tooltip', '{{dt()}}');
+        element.attr('tooltip-placement', 'bottom');
+        element.removeAttr(""common-things""); //remove the attribute to avoid indefinite loop
+        element.removeAttr(""data-common-things""); //also remove the same attribute with data- prefix in case users specify data-common-things in the html
+        
+        $compile(element)(scope);
+      }
+    };
+  });
+ terminal: true priority: 1000 priority terminal: true terminal:true priority: 1000 ng-repeat ng-repeat ng-repeat ngRepeat "

@@ -1,0 +1,29 @@
+,SOCode
+3952,"__destruct() <?php
+
+class ExceptionHandler
+{
+    private $rethrow;
+    public function __construct()
+    {
+        set_exception_handler(array($this, 'handler'));
+    }
+    public function handler($exception)
+    {
+        echo  ""cleaning up.\n"";
+        $this->rethrow = $exception;
+    }
+    public function __destruct()
+    {
+        if ($this->rethrow) throw $this->rethrow;
+    }
+}
+
+$handler = new ExceptionHandler;
+
+throw new Exception();
+ [29-Oct-2011 xx:32:25] PHP Fatal error: Uncaught exception 'Exception' in /.../test-exception.php:23
+Stack trace:
+#0 {main}
+thrown in /.../test-exception.php on line 23
+ "

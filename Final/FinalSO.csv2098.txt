@@ -1,0 +1,5 @@
+,SOCode
+2098,"/.../s . \s \S [\s\S]
+ /<div class=""box-content-5"">[\s\S]*<h1>([^<]+?)<\/h1>/i
+ s s m m ^ $ . /<div class=""box-content-5"">.*<h1>([^<]+?)<\/h1>/is
+ "

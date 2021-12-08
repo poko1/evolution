@@ -1,0 +1,34 @@
+No. of Question Type:
+
+SELECT COUNT(*) FROM `sotorrent-org.2020_01_24.PostReferenceGH` AS g,
+`sotorrent-org.2020_01_24.Posts` AS a
+WHERE g.PostId=a.Id
+and a.PostTypeId=1
+
+
+No. of Answer Type:
+
+SELECT COUNT(*) FROM `sotorrent-org.2020_01_24.PostReferenceGH` AS g,
+`sotorrent-org.2020_01_24.Posts` AS a
+WHERE g.PostId=a.Id
+and a.PostTypeId=2
+
+
+No. of Text Type:
+
+SELECT COUNT(*) FROM `sotorrent-org.2020_01_24.PostReferenceGH` AS g,
+`sotorrent-org.2020_01_24.Posts` AS a,
+`sotorrent-org.2020_01_24.PostBlockVersion` AS b 
+WHERE g.PostId=a.Id
+and a.Id= b.PostId
+and b.PostBlockTypeId=1
+
+
+No. of Code Type:
+
+SELECT COUNT(*) FROM `sotorrent-org.2020_01_24.PostReferenceGH` AS g,
+`sotorrent-org.2020_01_24.Posts` AS a,
+`sotorrent-org.2020_01_24.PostBlockVersion` AS b 
+WHERE g.PostId=a.Id
+and a.Id= b.PostId
+and b.PostBlockTypeId=2

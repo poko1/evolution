@@ -1,0 +1,14 @@
+,SOCode
+4120,"<form> .unwrap() .clone() type=""hidden"" window.reset = function(e) {
+  e.wrap('<form>').closest('form').get(0).reset();
+  e.unwrap();
+} <script src=""https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js""></script>
+
+<form>
+  <input id=""file"" type=""file"">
+  <br>
+  <input id=""text"" type=""text"" value=""Original"">
+</form>
+
+<button onclick=""reset($('#file'))"">Reset file</button>
+<button onclick=""reset($('#text'))"">Reset text</button> <form> .preventDefault() <button> File "

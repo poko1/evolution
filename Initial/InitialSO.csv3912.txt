@@ -1,0 +1,50 @@
+,SOCode
+3912,"private class Flinger implements Runnable {
+    private final Scroller scroller;
+
+    private int lastX = 0;
+
+    Flinger() {
+        scroller = new Scroller(getActivity());
+    }
+
+    void start(int initialVelocity) {
+        int initialX = scrollingView.getScrollX();
+        int maxX = Integer.MAX_VALUE; // or some appropriate max value in your code
+        scroller.fling(initialX, 0, initialVelocity, 0, 0, maxX, 0, 10);
+        Log.i(TAG, ""starting fling at "" + initialX + "", velocity is "" + initialVelocity + """");
+
+        lastX = initialX;
+        getView().post(this);
+    }
+
+    public void run() {
+        if (scroller.isFinished()) {
+            Log.i(TAG, ""scroller is finished, done with fling"");
+            return;
+        }
+
+        boolean more = scroller.computeScrollOffset();
+        int x = scroller.getCurrX();
+        int diff = lastX - x;
+        if (diff != 0) {
+            scrollingView.scrollBy(diff, 0);
+            lastX = x;
+        }
+
+        if (more) {
+            getView().post(this);
+        }
+    }
+
+    boolean isFlinging() {
+        return !scroller.isFinished();
+    }
+
+    void forceFinished() {
+        if (!scroller.isFinished()) {
+            scroller.forceFinished(true);
+        }
+    }
+}
+ "

@@ -1,0 +1,41 @@
+,SOCode
+43,"function getCaret(node) {
+  if (node.selectionStart) {
+    return node.selectionStart;
+  } else if (!document.selection) {
+    return 0;
+  }
+
+  var c = ""\001"",
+      sel = document.selection.createRange(),
+      dul = sel.duplicate(),
+      len = 0;
+
+  dul.moveToElementText(node);
+  sel.text = c;
+  len = dul.text.indexOf(c);
+  sel.moveStart('character',-1);
+  sel.text = """";
+  return len;
+}
+ function getCaret(el) { 
+  if (el.selectionStart) { 
+    return el.selectionStart; 
+  } else if (document.selection) { 
+    el.focus(); 
+ 
+    var r = document.selection.createRange(); 
+    if (r == null) { 
+      return 0; 
+    } 
+ 
+    var re = el.createTextRange(), 
+        rc = re.duplicate(); 
+    re.moveToBookmark(r.getBookmark()); 
+    rc.setEndPoint('EndToStart', re); 
+ 
+    return rc.text.length; 
+  }  
+  return 0; 
+}
+ "

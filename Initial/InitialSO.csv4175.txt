@@ -1,0 +1,23 @@
+,SOCode
+4175,"import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+def dfScatter(df, xcol='Height', ycol='Weight', catcol='Gender'):
+    fig, ax = plt.subplots()
+    categories = np.unique(df[catcol])
+    colors = np.linspace(0, 1, len(categories))
+    colordict = dict(zip(categories, colors))  
+
+    df[""Color""] = df[catcol].apply(lambda x: colordict[x])
+    ax.scatter(df[xcol], df[ycol], c=df.Color)
+    return fig
+
+if 1:
+    df = pd.DataFrame({'Height':np.random.normal(size=10),
+                       'Weight':np.random.normal(size=10),
+                       'Gender': [""Male"",""Male"",""Unknown"",""Male"",""Male"",
+                                  ""Female"",""Did not respond"",""Unknown"",""Female"",""Female""]})    
+    fig = dfScatter(df)
+    fig.savefig('fig1.png')
+ "

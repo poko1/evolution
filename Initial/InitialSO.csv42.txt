@@ -1,0 +1,2 @@
+,SOCode
+42,btoa() atob() btoa() atob() 0 0xff 

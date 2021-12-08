@@ -1,0 +1,33 @@
+,SOCode
+3976,"rm -f import os
+import shutil
+
+def rm_r(path):
+    if os.path.isdir(path) and not os.path.islink(path):
+        shutil.rmtree(path)
+    elif os.path.exists(path):
+        os.remove(path)
+ stat rm -f shutils.rmtree $ mkdir rmtest
+$ cd rmtest/
+$ echo ""stuff"" > myfile
+$ ls
+myfile
+$ rm -rf myfile 
+$ ls
+$ echo ""stuff"" > myfile
+$ ls
+myfile
+$ python
+Python 2.7.1+ (r271:86832, Apr 11 2011, 18:13:53) 
+[GCC 4.5.2] on linux2
+Type ""help"", ""copyright"", ""credits"" or ""license"" for more information.
+>>> import shutil
+>>> shutil.rmtree('myfile')
+Traceback (most recent call last):
+  File ""<stdin>"", line 1, in <module>
+  File ""/usr/lib/python2.7/shutil.py"", line 236, in rmtree
+    onerror(os.listdir, path, sys.exc_info())
+  File ""/usr/lib/python2.7/shutil.py"", line 234, in rmtree
+    names = os.listdir(path)
+OSError: [Errno 20] Not a directory: 'myfile'
+ "

@@ -1,0 +1,4 @@
+,SOCode
+5103,"signtool.exe sign /f cert_file.pfx /t http://timestamp.comodoca.com/authenticode /p cert_password
+signtool.exe sign /f cert_file.pfx /as /fd sha256 /tr http://timestamp.comodoca.com/rfc3161 /td sha256 /p cert_password 
+ "

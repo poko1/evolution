@@ -1,0 +1,5 @@
+,SOCode
+3969,"var myStr = 'thisString';
+
+myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+ "

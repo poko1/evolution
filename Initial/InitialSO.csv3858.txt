@@ -1,0 +1,53 @@
+,SOCode
+3858,"$conn = mysql_connect(""localhost"", ""mysql_user"", ""mysql_password"");
+mysql_select_db(""mydbname"");
+$result = mysql_query(""SELECT * FROM myTable"");
+//first get your sizes
+$sizes = array();
+$row = mysql_fetch_assoc($result);
+foreach($row as $key=>$value){
+    $sizes[$key] = strlen($key); //initialize to the size of the column name
+}
+while($row = mysql_fetch_assoc($result)){
+    foreach($row as $key=>$value){
+        $length = strlen($value);
+        if($length > $sizes[$key]) $sizes[$key] = $length; // get largest result size
+    }
+}
+mysql_data_seek($result, 0); //set your pointer back to the beginning.
+
+//top of output
+foreach($sizes as $length){
+    echo ""+"".str_pad("""",$length+2,""-"");
+}
+echo ""+\n"";
+
+// column names
+$row = mysql_fetch_assoc($result);
+foreach($row as $key=>$value){
+    echo ""| "";
+    echo str_pad($key,$sizes[$key]+1);
+}
+echo ""|\n"";
+
+//line under column names
+foreach($sizes as $length){
+    echo ""+"".str_pad("""",$length+2,""-"");
+}
+echo ""+\n"";
+
+//output data
+do {
+    foreach($row as $key=>$value){
+        echo ""| "";
+        echo str_pad($value,$sizes[$key]+1);
+    }
+    echo ""|\n"";
+} while($row = mysql_fetch_assoc($result));
+
+//bottom of output
+foreach($sizes as $length){
+    echo ""+"".str_pad("""",$length+2,""-"");
+}
+echo ""+\n"";
+ "

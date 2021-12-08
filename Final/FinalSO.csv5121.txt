@@ -1,0 +1,23 @@
+,SOCode
+5121,"Highcharts.SVGRenderer.prototype.symbols.plus = function (x, y, w, h) {
+    return [
+        'M', x, y + (5 * h) / 8,
+        'L', x, y + (3 * h) / 8,
+        'L', x + (3 * w) / 8, y + (3 * h) / 8,
+        'L', x + (3 * w) / 8, y,
+        'L', x + (5 * w) / 8, y,
+        'L', x + (5 * w) / 8, y + (3 * h) / 8,
+        'L', x + w, y + (3 * h) / 8,
+        'L', x + w, y + (5 * h) / 8,
+        'L', x + (5 * w) / 8, y + (5 * h) / 8,
+        'L', x + (5 * w) / 8, y + h,
+        'L', x + (3 * w) / 8, y + h,
+        'L', x + (3 * w) / 8, y + (5 * h) / 8,
+        'L', x, y + (5 * h) / 8,
+        'z'
+    ];
+};
+if (Highcharts.VMLRenderer) {
+    Highcharts.VMLRenderer.prototype.symbols.plus = Highcharts.SVGRenderer.prototype.symbols.plus;
+}
+ "

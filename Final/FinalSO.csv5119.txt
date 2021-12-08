@@ -1,0 +1,12 @@
+,SOCode
+5119,"$timeout(function () {
+        controlScope.$watch('checked', function () {
+            $timeout(function() {
+                args.grid.getEditController().commitCurrentEdit();
+                args.grid.resetActiveCell();
+
+            });
+
+        });
+    });
+ "

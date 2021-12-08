@@ -1,0 +1,4 @@
+,SOCode
+4897,"// var isWebkit = 'webkitRequestAnimationFrame' in window; // deprecated
+var isWebkit = 'WebkitAppearance' in document.documentElement.style
+ "

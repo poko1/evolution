@@ -1,0 +1,14 @@
+,SOCode
+4186,"buf mChars     private char[] mChars;
+    public void getChars(int start, int end, char[] buf, int off) {
+        if (start < 0 || end < 0 || start > mLength || end > mLength) {
+            throw new IndexOutOfBoundsException(start + "", "" + end);
+        }
+
+        System.arraycopy(mChars, start + mStart, buf, off, end - start);
+    }
+             int pl = mPasswordEt.length();
+            char[] password = new char[pl];
+            mPasswordEt.getText().getChars(0, pl, password, 0);
+ char[] password Arrays.fill(password, ' ');
+ "

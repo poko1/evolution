@@ -1,0 +1,14 @@
+,SOCode
+4115,"Date.prototype.isValid = function () {
+    // An invalid date object returns NaN for getTime() and NaN is the only
+    // object not strictly equal to itself.
+    return this.getTime() === this.getTime();
+};  
+ var d = new Date(""lol"");
+
+console.log(d.isValid()); // false
+
+d = new Date(""2012/09/11"");
+
+console.log(d.isValid()); // true
+ "

@@ -1,0 +1,32 @@
+,SOCode
+3877,"function array_move(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+};
+
+// returns [2, 1, 3]
+console.log(array_move([1, 2, 3], 0, 1));  return splice move slice new_index undefined undefined arr.splice(old_index, 1)[0] splice [1] 1 splice new_index > arr.length function array_move(arr, old_index, new_index) {
+    while (old_index < 0) {
+        old_index += arr.length;
+    }
+    while (new_index < 0) {
+        new_index += arr.length;
+    }
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing purposes
+};
+    
+// returns [1, 3, 2]
+console.log(array_move([1, 2, 3], -1, -2)); array_move([1, 2, 3], -1, -2) [1, 3, 2] array_move(arr, 0, 2) a c d b array_move(arr, 3, 1) "

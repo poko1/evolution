@@ -1,0 +1,12 @@
+,SOCode
+5062,"AutoCompleteTextView InputType EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE     // Always turn on the auto complete input type flag, since it
+    // makes no sense to use this widget without it.
+    int inputType = getInputType();
+    if ((inputType&EditorInfo.TYPE_MASK_CLASS)
+            == EditorInfo.TYPE_CLASS_TEXT) {
+        inputType |= EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE;
+        setRawInputType(inputType);
+    }
+ AutoCompleteTextView t = (AutoCompleteTextView)v.findViewById(id);
+t.setInputType( t.getInputType() & (~EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) );
+ "

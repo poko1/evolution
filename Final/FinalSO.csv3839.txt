@@ -1,0 +1,6 @@
+,SOCode
+3839,"imagecolortransparent($img) imagecolortransparent()     $tidx = imagecolortransparent($img);
+    $palletsize = imagecolorstotal($img);
+    if ($tidx >= 0 && $tidx < $palletsize) {
+      $transColor = imagecolorsforindex($img, $tidx);
+ "

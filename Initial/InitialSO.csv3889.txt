@@ -1,0 +1,29 @@
+,SOCode
+3889,"rexl.re = {
+  NAME: /^(?!\d)(?:\w)+|^""(?:[^""]|"""")+""/,
+  UNQUOTED_LITERAL: /^@(?:(?!\d)(?:\w|\:)+|^""(?:[^""]|"""")+"")\[[^\]]+\]/,
+  QUOTED_LITERAL: /^'(?:[^']|'')*'/,
+  NUMERIC_LITERAL: /^[0-9]+(?:\.[0-9]*(?:[eE][-+][0-9]+)?)?/,
+  SYMBOL: /^(?:==|=|<>|<=|<|>=|>|!~~|!~|~~|~|!==|!=|!~=|!~|!|&|\||\.|\:|,|\(|\)|\[|\]|\{|\}|\?|\:|;|@|\^|\/\+|\/|\*|\+|-)/
+};
+ UNQUITED_LITERAL rexl.re = {
+  NAME: /^(?!\d)(?:\w)+|^""(?:[^""]|"""")+""/,
+  UNQUOTED_LITERAL: /^@(?:(?!\d)(?:\w|\:)+|^""(?:[^""]|"""")+"")\[[^\]]+\]/,
+  QUOTED_LITERAL: /^'(?:[^']|'')*'/,
+  NUMERIC_LITERAL: /^[0-9]+(?:\.[0-9]*(?:[eE][-+][0-9]+)?)?/,
+  SYMBOL: /^(?:==|=|<>|<=|<|>=|>|!~~|!~|~~|~|!==|!=|!~=|!~|!|&|\||\.|\:|,|\(|\)|\[|\]|\{|\}|\?|\:|;|@|\^|\/\+|\/|\*|\+|-)/
+};
+str = '""';
+ NAME's regex regex ([^/]|(?<!\\)(?<=\\)/)*
+ / \/ \\/     case 'UNQUOTED_LITERAL': 
+    case 'QUOTED_LITERAL': {
+        this._js =  ""e.str(\"""" + this.value.replace(/\\/g, ""\\\\"").replace(/""/g, ""\\\"""") + ""\"")"";
+        break;
+    }
+ var clazz = function() {
+    if (clazz.__) return delete(clazz.__);
+    this.constructor = clazz;
+    if(constructor)
+        constructor.apply(this, arguments);
+};
+ (keyword, const), (id, ructor) inherits in herits "

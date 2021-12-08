@@ -1,0 +1,81 @@
+,SOCode
+4056,"#dropzone var dragging = 0;
+
+attachEvent(window, 'dragenter', function(event) {
+
+    dragging++;
+    $(dropzone).addClass('drag-n-drop-hover');
+
+    event.stopPropagation();
+    event.preventDefault();
+    return false;
+});
+
+attachEvent(window, 'dragover', function(event) {
+
+    $(dropzone).addClass('drag-n-drop-hover');
+
+    event.stopPropagation();
+    event.preventDefault();
+    return false;
+});
+
+attachEvent(window, 'dragleave', function(event) {
+
+    dragging--;
+    if (dragging === 0) {
+        $(dropzone).removeClass('drag-n-drop-hover');
+    }
+
+    event.stopPropagation();
+    event.preventDefault();
+    return false;
+});
+ dragenter $.fn.dndhover = function(options) {
+
+    return this.each(function() {
+
+        var self = $(this);
+        var collection = $();
+
+        self.on('dragenter', function(event) {
+            if (collection.size() === 0) {
+                self.trigger('dndHoverStart');
+            }
+            collection = collection.add(event.target);
+        });
+
+        self.on('dragleave', function(event) {
+            /*
+             * Firefox 3.6 fires the dragleave event on the previous element
+             * before firing dragenter on the next one so we introduce a delay
+             */
+            setTimeout(function() {
+                collection = collection.not(event.target);
+                if (collection.size() === 0) {
+                    self.trigger('dndHoverEnd');
+                }
+            }, 1);
+        });
+    });
+};
+
+$('#dropzone').dndhover().on({
+    'dndHoverStart': function(event) {
+
+        $('#dropzone').addClass('drag-n-drop-hover');
+
+        event.stopPropagation();
+        event.preventDefault();
+        return false;
+    },
+    'dndHoverEnd': function(event) {
+
+        $('#dropzone').removeClass('drag-n-drop-hover');
+
+        event.stopPropagation();
+        event.preventDefault();
+        return false;
+    }
+});
+ "

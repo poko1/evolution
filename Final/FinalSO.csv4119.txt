@@ -1,0 +1,9 @@
+,SOCode
+4119,"renderer.autoClear = false;
+ renderer.clear();                     // clear buffers
+renderer.render( scene, camera );     // render scene 1
+renderer.clearDepth();                // clear depth buffer
+renderer.render( scene2, camera );    // render scene 2
+ mesh.renderOrder = 999;
+mesh.onBeforeRender = function( renderer ) { renderer.clearDepth(); };
+ "

@@ -1,0 +1,9 @@
+,SOCode
+3756,"import threading
+cond = threading.Condition(threading.Lock())
+cond.acquire()
+cond.wait(None)
+print ""done""
+     results = pool.map(slowly_square, range(40))
+     results = pool.map_async(slowly_square, range(40)).get(9999999)
+ "

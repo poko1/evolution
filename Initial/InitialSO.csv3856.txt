@@ -1,0 +1,11 @@
+,SOCode
+3856,"def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+ mod_rpaf X-Forwarded-For get_client_ip = lambda req: req.META.get('HTTP_X_FORWARDED_FOR') if req.META.get('HTTP_X_FORWARDED_FOR') else ip = request.META.get('REMOTE_ADDR')
+ get_client_ip(request)
+ "

@@ -1,0 +1,3 @@
+,SOCode
+3903,"((BitmapDrawable)ascender.getDrawable()).setTileModeY(TileMode.CLAMP);
+ "

@@ -1,0 +1,14 @@
+,SOCode
+3793,"createEvent createEventObject dataavailable element var event; // The custom event that will be created
+if(document.createEvent){
+    event = document.createEvent(""HTMLEvents"");
+    event.initEvent(""dataavailable"", true, true);
+    event.eventName = ""dataavailable"";
+    element.dispatchEvent(event);
+} else {
+    event = document.createEventObject();
+    event.eventName = ""dataavailable"";
+    event.eventType = ""dataavailable"";
+    element.fireEvent(""on"" + event.eventType, event);
+}
+ "

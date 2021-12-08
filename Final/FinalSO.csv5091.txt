@@ -1,0 +1,7 @@
+,SOCode
+5091,"//# Polyfill
+window.addEventListener = window.addEventListener || function (e, f) { window.attachEvent('on' + e, f); };
+
+//# Standard usage
+window.addEventListener(""message"", function(){ /*...*/ }, false);
+ window.attachEvent "

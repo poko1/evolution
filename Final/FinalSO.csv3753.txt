@@ -1,0 +1,7 @@
+,SOCode
+3753,"$('input[type=file]').val()
+ $('input[type=file]').change(function(e){
+  $in=$(this);
+  $in.next().html($in.val());
+});
+ "

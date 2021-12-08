@@ -1,0 +1,11 @@
+,SOCode
+864,"ALTER TABLE orig_table_name RENAME TO tmp_table_name;
+ CREATE TABLE orig_table_name (
+  col_a INT
+, col_b INT
+);
+ INSERT INTO orig_table_name(col_a, col_b)
+SELECT col_a, colb
+FROM tmp_table_name;
+ DROP TABLE tmp_table_name;
+ BEGIN TRANSACTION; COMMIT; "

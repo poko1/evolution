@@ -1,0 +1,16 @@
+,SOCode
+3747,"import re
+
+def _callback(matches):
+    id = matches.group(1)
+    try:
+        return unichr(int(id))
+    except:
+        return id
+
+def decode_unicode_references(data):
+    return re.sub(""&#(\d+)(;|(?=\s))"", _callback, data)
+
+data = ""U.S. Adviser&#8217;s Blunt Memo on Iraq: Time &#8216;to Go Home&#8217;""
+print decode_unicode_references(data)
+ "

@@ -1,0 +1,8 @@
+,SOCode
+5117,"output.publicPath style-loader file-loader url-loader file-loader blob://... file-loader {
+  output: {
+    publicPath: ""http://localhost:8080/"", // Development Server
+    // publicPath: ""http://example.com/"", // Production Server
+  }
+}
+ extract-text-webpack-plugin "

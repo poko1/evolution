@@ -1,0 +1,16 @@
+,SOCode
+858,"import unicodedata
+
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    only_ascii = nfkd_form.encode('ASCII', 'ignore')
+    return only_ascii
+ import unicodedata
+
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    return u"""".join([c for c in nfkd_form if not unicodedata.combining(c)])
+ unicodedata.combining(c) c remove_accents encoding = ""utf-8"" # or iso-8859-15, or cp1252, or whatever encoding you use
+byte_string = b""café""  # or simply ""café"" before python 3.
+unicode_string = byte_string.decode(encoding)
+ "

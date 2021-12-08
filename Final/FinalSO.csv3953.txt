@@ -1,0 +1,28 @@
+,SOCode
+3953,"<FrameLayout
+    android:id=""@+id/web_container""
+    android:layout_width=""fill_parent""
+    android:layout_height=""wrap_content""/>
+ public class TestActivity extends Activity {
+    private FrameLayout mWebContainer;
+    private WebView mWebView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.your_layout);
+
+        mWebContainer = (FrameLayout) findViewById(R.id.web_container);
+        mWebView = new WebView(getApplicationContext());
+        mWebContainer.addView(mWebView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mWebContainer.removeAllViews();
+        mWebView.destroy();
+    }
+}
+ "

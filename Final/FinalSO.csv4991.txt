@@ -1,0 +1,5 @@
+,SOCode
+4991,"exec exec 'import vfs_tests as v'
+ eval import exec exec('import vfs_tests as v') importlib import importlib
+mod = importlib.import_module('vfs_tests')
+ __import__ "

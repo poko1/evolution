@@ -1,0 +1,14 @@
+,SOCode
+3754,"final View parent = (View) delegate.getParent();
+parent.post( new Runnable() {
+    // Post in the parent's message queue to make sure the parent
+    // lays out its children before we call getHitRect()
+    public void run() {
+        final Rect r = new Rect();
+        delegate.getHitRect(r);
+        r.top -= 4;
+        r.bottom += 4;
+        parent.setTouchDelegate( new TouchDelegate( r , delegate));
+    }
+});
+ "

@@ -1,0 +1,17 @@
+,SOCode
+3845,"$(""#popup"").dialog(
+{
+    height: 670,
+    width: 680,
+    modal: true,
+    autoOpen: false,
+    close: function(event, ui) { $('#wrap').show(); },
+    open: function(event, ui) 
+    { 
+        $('.ui-widget-overlay').bind('click', function()
+        { 
+            $(""#popup"").dialog('close'); 
+        }); 
+    }
+});
+ "

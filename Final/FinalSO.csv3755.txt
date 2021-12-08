@@ -1,0 +1,5 @@
+,SOCode
+3755,".push .push >>> a.push(...b)
+ .apply >>> a.push.apply(a, b)
+ >>> Array.prototype.push.apply(a,b)
+ b b "

@@ -1,0 +1,22 @@
+,SOCode
+3773,"// Whitespace strings:
+IsNumeric(' ')    == true;
+IsNumeric('\t\t') == true;
+IsNumeric('\n\r') == true;
+
+// Number literals:
+IsNumeric(-1)  == false;
+IsNumeric(0)   == false;
+IsNumeric(1.1) == false;
+IsNumeric(8e5) == false;
+ IsNumeric String Number +true == 1; true ""numeric"" function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+ isNumeric: function(obj) {
+    var realStringObj = obj && obj.toString();
+    return !jQuery.isArray(obj) && (realStringObj - parseFloat(realStringObj) + 1) >= 0;
+}
+ export function isNumeric(value: any): boolean {
+    return !isNaN(value - parseFloat(value));
+}
+ "

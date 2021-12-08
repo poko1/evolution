@@ -1,0 +1,7 @@
+,SOCode
+884,"var intRegex = /^\d+$/;
+if(intRegex.test(someNumber)) {
+   alert('I am an int');
+   ...
+}
+ "

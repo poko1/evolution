@@ -1,0 +1,108 @@
+,SOCode
+5087,"number = 16 + 36 * r + 6 * g + b
+ r g b print '\e[m' urxvt xterm # example in Python: // is integer divison, % is modulo
+rgb_R = ((number - 16) // 36) * 51
+rgb_G = (((number - 16) % 36) // 6) * 51
+rgb_B = ((number - 16) % 6) * 51
+ [0, 1, 2, 3, 4, 5] [0, 95, 135, 175, 215, 255] # example in Python: 'a = b if c else d' is 'a = (c) ? b : d` in C, Perl, etc.
+index_R = ((number - 16) // 36)
+rgb_R = 55 + index_R * 40 if index_R > 0 else 0
+index_G = (((number - 16) % 36) // 6)
+rgb_G = 55 + index_G * 40 if index_G > 0 else 0
+index_B = ((number - 16) % 6)
+rgb_B = 55 + index_B * 40 if index_B > 0 else 0
+ rgb_R = rgb_G = rgb_B = (number - 232) * 10 + 8
+ 256colres.pl 256colres.h $line1=""COLOR_RES(\""%d\"","";
+$line2=""\tscreen.Acolors[%d],"";
+$line3=""\tDFT_COLOR(\""rgb:%2.2x/%2.2x/%2.2x\"")),\n"";
+
+# colors 16-231 are a 6x6x6 color cube
+for ($red = 0; $red < 6; $red++) {
+    for ($green = 0; $green < 6; $green++) {
+    for ($blue = 0; $blue < 6; $blue++) {
+        $code = 16 + ($red * 36) + ($green * 6) + $blue;
+        printf($line1, $code);
+        printf($line2, $code);
+        printf($line3,
+           ($red ? ($red * 40 + 55) : 0),
+           ($green ? ($green * 40 + 55) : 0),
+           ($blue ? ($blue * 40 + 55) : 0));
+    }
+    }
+}
+
+# colors 232-255 are a grayscale ramp, intentionally leaving out
+# black and white
+$code=232;
+for ($gray = 0; $gray < 24; $gray++) {
+    $level = ($gray * 10) + 8;
+    $code = 232 + $gray;
+    printf($line1, $code);
+    printf($line2, $code);
+    printf($line3,
+       $level, $level, $level);
+}
+ TERM function termcolors () 
+{
+    print TERM
+    print -P ""Foreground: >█<""
+    print -P ""Background: >%S█%s<\n""
+
+    print ""      0 1 2 3 4 5 6 7"" 
+    for b (0 1)
+    do
+        printf ""%d %2d "" $b $(( 8 * b ))
+        for r (0 1 2 3 4 5 6 7)
+        do
+            c=$(( 8 * b + r ))
+            print -nP ""%K{$c}  %k""
+        done
+        printf "" %2d\n"" $(( 8 * b + 7 ))
+    done
+
+    print
+
+    print RGB
+    for r (0 1 2 3 4 5)
+    do 
+        print ""$r $(( 16 + 36 * r )) - $(( 16 + 36 * r + 35 ))\n       0 1 2 3 4 5""
+        for g (0 1 2 3 4 5)
+        do
+            printf ""%d %3d "" $g $(( 16 + 36 * r + 6 * g ))
+            for b (0 1 2 3 4 5)
+            do
+                c=$(( 16 + 36 * r + 6 * g + b ))
+                print -nP ""%K{$c}  %k""
+            done
+            printf "" %3d\n"" $(( 16 + 36 * r + 6 * g + 5))
+        done
+        print
+    done
+
+    print
+
+    print GRAY
+    for g in $(seq 0 23)
+    do
+        c=$(( 232 + g ))
+        printf ""%2d %3d "" $g $c
+        print -P ""%K{$c}  %k""
+    done
+}
+ xterm gnome-terminal termite urxvt OSC 4; c ; spec BEL
+OSC 4; c ; spec ST
+ OSC \e \033 ] c spec red #ff0000 rgb:ff/00/00 rgbi:1/0/0 BEL \a \007 ST \e\\ \033\\ echo echo -en ""\e]4;COLOR;SPEC\a""
+echo -en ""\e]4;COLOR;SPEC\a""
+ echo -en ""\e]4;5;red\a""
+echo -en ""\e]4;5;#ff0000\e\\""
+echo -en ""\033]4;5;rgb:ff/00/00\007""
+ OSC 104 ; c BEL
+OSC 104 ; c ST
+ for c in {0..255}; do
+  echo -en ""\e]104;$c\a""
+done
+ OSC 10 ; spec BEL OSC 11 ; spec BEL echo -en ""\e]10;red\a""
+echo -en ""\e]11;green\a""
+ OSC 110 BEL OSC 111 BEL echo -en ""\e]110\a""
+echo -en ""\e]111\a""
+ "

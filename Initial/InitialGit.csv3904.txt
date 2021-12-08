@@ -1,0 +1,302 @@
+,GitCode
+3904,"
+var settings = {};
+settings.icons = [
+   'images/ico-tree.svg'
+  ,'images/ico-boat.png'
+  ,'images/ico-waves.png'
+];
+
+settings.controller = {
+  click_radius2: 15*25
+  ,click_time: 500
+};
+
+settings.renderer = {
+  scroll_factor: 1/8
+}/* island-graph.js
+ *    manage internal representation of the map
+ *
+ * Copyright 2015. verev.
+ *
+ * Licensed under the Apache License, Version 2.0 (the ""License"");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an ""AS IS"" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
+ var graph = (function(){
+
+  var structure = [
+    {icon:'images/ico-tree.svg', x:0, y:0}
+  ];
+
+  var _allInside = function(x, y, w, h, callback){
+    for(var i=0;i<structure.length;i++){
+      var o = structure[i];
+      if(o.x >= x && o.x <= x+w && o.y >= y && o.y <= y+h){
+        callback(o);
+      }
+    }
+  }
+
+  var _init = function(){
+
+  }
+  return {
+    init:_init
+    ,allInside:_allInside
+  };
+})();
+/* util-canvas.js
+ *    low level canvas management. including auto resize,
+ *    image loading and display
+ *
+ * Copyright 2015. verev.
+ *
+ * Licensed under the Apache License, Version 2.0 (the ""License"");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an ""AS IS"" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+var canvas = document.getElementById(""screen"");
+
+var util_canvas = (function() {
+  var context = canvas.getContext(""2d"");
+  
+
+  var _fit_canvas = function() {
+    var w_pad = 10;
+    var h_pad = 10;
+    var aspect = 4/3;
+    var controls = document.getElementById(""control"");
+
+    return function() {
+      var usable_w = window.innerWidth - controls.offsetWidth - w_pad;
+      var usable_h = window.innerHeight - controls.offsetHeight - h_pad;
+
+      if(usable_w < usable_h * aspect) {
+        canvas.width = usable_w;
+        canvas.height = usable_w / aspect;
+      }
+      else {
+        canvas.width = usable_h * aspect;
+        canvas.height = usable_h;
+      }
+    }
+  }
+
+  var _relativeDraw = function(img, x, y, w, h) {
+    var scale = canvas.width;
+    var rx = x * scale;
+    var ry = y * scale;
+    var rw = w * scale;
+    var rh = h * scale;
+
+    return context.drawImage(img,rx-rw/2,ry-rh/2,rw,rh);
+  }
+
+  var _init = function(){
+    var fit_canvas_func = _fit_canvas();
+    window.addEventListener('resize', fit_canvas_func);
+    fit_canvas_func();
+  }
+
+  var _clear = function(color){
+    context.fillStyle = color;
+    context.fillRect(0,0,canvas.width,canvas.height);
+  }
+
+  return {
+     relativeDraw:_relativeDraw
+    ,init:_init
+    ,clear:_clear
+  };
+})();
+/* renderer.js
+ *    manage the view. call for image loading and drawing as required by
+ *    renderer's state and the island graph
+ *
+ * Copyright 2015. verev.
+ *
+ * Licensed under the Apache License, Version 2.0 (the ""License"");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an ""AS IS"" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ var renderer = (function(){
+
+  var view_pos = {x: -50, y:-50};
+  var view_size = {x: 100, y:100};
+  var view_padding = 100;
+  var view_icons_size = 1/10;
+
+  var image_cache = {};
+
+  var _preloadImage = function(path){
+    var img = new Image();
+    img.onload = _draw;
+    img.src = path;
+    image_cache[path] = img;
+  }
+
+  var _getImage = function(path){
+    if(typeof image_cache[path] === 'undefined'){
+      //we didn't load this image so it must be a mistake
+      return null;
+    }
+    return image_cache[path];
+  }
+
+  var _draw_island = function(island){
+    var x = island.x-view_pos.x;
+    var y = island.y-view_pos.y;
+    util_canvas.relativeDraw(_getImage(island.icon), x/view_size.x,
+                                                     y/view_size.y,
+                                                     view_icons_size,
+                                                     view_icons_size);
+  }
+
+  var _draw = function(){
+    util_canvas.clear('#AAAAFF');
+    graph.allInside(view_pos.x-view_padding,
+                    view_pos.y-view_padding,
+                    view_size.x+2*view_padding,
+                    view_size.y+2*view_padding,
+                    _draw_island);
+  }
+
+  var _scroll = function(dx, dy){
+    view_pos.x += dx * settings.renderer.scroll_factor;
+    view_pos.y += dy * settings.renderer.scroll_factor;
+    _draw();
+  }
+
+  var _init = function(){
+    for(var i=0;i<settings.icons.length;i++){
+      _preloadImage(settings.icons[i]);
+    }
+    window.addEventListener('resize', _draw);
+  }
+
+  return {
+     init: _init
+    ,draw: _draw
+    ,scroll: _scroll
+  };
+})();
+/* controller.js
+ *    collection of functions to put in html onclick
+ *
+ * Copyright 2015. verev.
+ *
+ * Licensed under the Apache License, Version 2.0 (the ""License"");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an ""AS IS"" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
+/*
+source: http://stackoverflow.com/questions/55677/5932203#5932203
+*/
+function relMouseCoords(event){
+    var totalOffsetX = 0;
+    var totalOffsetY = 0;
+    var canvasX = 0;
+    var canvasY = 0;
+    var currentElement = this;
+
+    do{
+        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+    }
+    while(currentElement = currentElement.offsetParent)
+
+    canvasX = event.pageX - totalOffsetX;
+    canvasY = event.pageY - totalOffsetY;
+
+    return {x:canvasX, y:canvasY}
+}
+HTMLCanvasElement.prototype.relMouseCoords = relMouseCoords;
+/*
+  end source
+*/
+var click_data = {time:0, x:0, y:0};
+var AAAA = null;
+
+function init(){
+  util_canvas.init();
+  graph.init();
+  renderer.init();
+
+  canvas.addEventListener('mousedown', function(e){
+    var coords = canvas.relMouseCoords(e);
+    click_data.time = e.timeStamp;
+    click_data.x = coords.x;
+    click_data.y = coords.y;
+  });
+
+  canvas.addEventListener('mouseup', function(e){
+    var coords = canvas.relMouseCoords(e);
+    var dx = click_data.x - coords.x;
+    var dy = click_data.y - coords.y;
+    if(e.timeStamp - click_data.time < settings.controller.click_time &&
+            dx*dx+dy*dy<settings.controller.click_radius2){
+      console.log(""click event!"");
+    }
+    click_data.time = 0;
+    click_data.x = 0;
+    click_data.y = 0;
+  });
+
+  canvas.addEventListener('mousemove', function(e){
+    var coords = canvas.relMouseCoords(e);
+    var dx = click_data.x - coords.x;
+    var dy = click_data.y - coords.y;
+    if(click_data.time != 0){
+      renderer.scroll(dx, dy);
+      click_data.x = coords.x;
+      click_data.y = coords.y;
+    }
+  });
+  canvas.addEventListener('mouseout', function(e){
+    click_data.time = 0;
+    click_data.x = 0;
+    click_data.y = 0;
+  });
+};
+
+window.onload = init;
+"

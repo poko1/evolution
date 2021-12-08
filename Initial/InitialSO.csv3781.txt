@@ -1,0 +1,34 @@
+,SOCode
+3781,"Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+ header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+header('Pragma: no-cache'); // HTTP 1.0.
+header('Expires: 0'); // Proxies.
+ response.setHeader(""Cache-Control"", ""no-cache, no-store, must-revalidate""); // HTTP 1.1.
+response.setHeader(""Pragma"", ""no-cache""); // HTTP 1.0.
+response.setDateHeader(""Expires"", 0); // Proxies.
+ Response.AppendHeader(""Cache-Control"", ""no-cache, no-store, must-revalidate""); // HTTP 1.1.
+Response.AppendHeader(""Pragma"", ""no-cache""); // HTTP 1.0.
+Response.AppendHeader(""Expires"", ""0""); // Proxies.
+ Response.addHeader ""Cache-Control"", ""no-cache, no-store, must-revalidate"" ' HTTP 1.1.
+Response.addHeader ""Pragma"", ""no-cache"" ' HTTP 1.0.
+Response.addHeader ""Expires"", ""0"" ' Proxies.
+ response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate' # HTTP 1.1.
+response.headers['Pragma'] = 'no-cache' # HTTP 1.0.
+response.headers['Expires'] = '0' # Proxies.
+ resp.headers[""Cache-Control""] = ""no-cache, no-store, must-revalidate""
+resp.headers[""Pragma""] = ""no-cache""
+resp.headers[""Expires""] = ""0""
+ responseWriter.Header().Set(""Cache-Control"", ""no-cache, no-store, must-revalidate"") // HTTP 1.1.
+responseWriter.Header().Set(""Pragma"", ""no-cache"") // HTTP 1.0.
+responseWriter.Header().Set(""Expires"", ""0"") // Proxies
+ <meta http-equiv=""Cache-Control"" content=""no-cache, no-store, must-revalidate"" />
+<meta http-equiv=""Pragma"" content=""no-cache"" />
+<meta http-equiv=""Expires"" content=""0"" />
+ <IfModule mod_headers.c>
+  Header set Cache-Control ""no-cache, no-store, must-revalidate""
+  Header set Pragma ""no-cache""
+  Header set Expires 0
+</IfModule>
+ Cache-Control Expires Pragma Expires Cache-Control Last-Modified "

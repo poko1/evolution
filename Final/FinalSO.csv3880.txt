@@ -1,0 +1,2 @@
+,SOCode
+3880,"closeOnEscape false $(dlg).dialog('option', 'closeOnEscape', false); $(dlg).parent().find('a.ui-dialog-titlebar-close').remove(); beforeclose $(dlg).bind('dialogbeforeclose', false); #1 #3 "

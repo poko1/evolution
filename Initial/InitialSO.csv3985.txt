@@ -1,0 +1,15 @@
+,SOCode
+3985,"document.doctype DocumentType var node = document.doctype;
+var html = ""<!DOCTYPE ""
+         + node.name
+         + (node.publicId ? ' PUBLIC ""' + node.publicId + '""' : '')
+         + (!node.publicId && node.systemId ? ' SYSTEM' : '') 
+         + (node.systemId ? ' ""' + node.systemId + '""' : '')
+         + '>';
+ <!DOCTYPE html> <!DOCTYPE html SYSTEM ""about:legacy-compat""> <!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.0//EN"" ""http://www.w3.org/TR/REC-html40/strict.dtd""> node.name      # Holds the name of the root element, eg: HTML / html
+node.publicId  # If this property is present, then it's a public document type.
+               #>Prefix PUBLIC
+!node.publicId && node.systemId
+               # If there's no publicId, but a systemId, prefix SYSTEM
+node.systemId  # Append this if present
+ "

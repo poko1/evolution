@@ -1,0 +1,24 @@
+,SOCode
+3764,"import re
+
+def mycmp(version1, version2):
+    def normalize(v):
+        return [int(x) for x in re.sub(r'(\.0+)*$','', v).split(""."")]
+    return cmp(normalize(version1), normalize(version2))
+ assert mycmp(""1"", ""1"") == 0
+assert mycmp(""2.1"", ""2.2"") < 0
+assert mycmp(""3.0.4.10"", ""3.0.4.2"") > 0
+assert mycmp(""4.08"", ""4.08.01"") < 0
+assert mycmp(""3.2.1.9.8144"", ""3.2"") > 0
+assert mycmp(""3.2"", ""3.2.1.9.8144"") < 0
+assert mycmp(""1.2"", ""2.1"") < 0
+assert mycmp(""2.1"", ""1.2"") > 0
+assert mycmp(""5.6.7"", ""5.6.7"") == 0
+assert mycmp(""1.01.1"", ""1.1.1"") == 0
+assert mycmp(""1.1.1"", ""1.01.1"") == 0
+assert mycmp(""1"", ""1.0"") == 0
+assert mycmp(""1.0"", ""1"") == 0
+assert mycmp(""1.0"", ""1.0.1"") < 0
+assert mycmp(""1.0.1"", ""1.0"") > 0
+assert mycmp(""1.0.2.0"", ""1.0.2"") == 0
+ "

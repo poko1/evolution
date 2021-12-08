@@ -1,0 +1,3 @@
+,SOCode
+4118,"d return flask.jsonify(**d)
+ ** myDict = {'a': 2, 'b': 3} someFunc(**myDict) someFunc(a=2, b=3) ** * "

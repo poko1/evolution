@@ -1,0 +1,60 @@
+,SOCode
+5123,">>> fb_get_url = 'https://graph.facebook.com/v2.6/%s' % result['id']
+>>> query_pieces ['reactions.type(LIKE).limit(0).summary(true).as(like)','reactions.type(LOVE).limit(0).summary(true).as(love)','reactions.type(WOW).limit(0).summary(true).as(wow)','reactions.type(HAHA).limit(0).summary(true).as(haha)','reactions.type(SAD).limit(0).summary(true).as(sad)','reactions.type(ANGRY).limit(0).summary(true).as(angry)', 'reactions.type(THANKFUL).limit(0).summary(true).as(thankful)']
+>>> full_query = "","".join(query_pieces)
+>>> r = requests.request(""GET"", fb_get_url, params={'access_token' : my_creds['access_token'], 'fields' : full_query})
+>>> print(dumps(r.json(), indent=2))
+{
+  ""love"": {
+    ""data"": [], 
+    ""summary"": {
+      ""total_count"": 0, 
+      ""viewer_reaction"": ""LIKE""
+    }
+  }, 
+  ""like"": {
+    ""data"": [], 
+    ""summary"": {
+      ""total_count"": 1, 
+      ""viewer_reaction"": ""LIKE""
+    }
+  }, 
+  ""wow"": {
+    ""data"": [], 
+    ""summary"": {
+      ""total_count"": 1, 
+      ""viewer_reaction"": ""LIKE""
+    }
+  }, 
+  ""haha"": {
+    ""data"": [], 
+    ""summary"": {
+      ""total_count"": 0, 
+      ""viewer_reaction"": ""LIKE""
+    }
+  }, 
+  ""sad"": {
+    ""data"": [], 
+    ""summary"": {
+      ""total_count"": 0, 
+      ""viewer_reaction"": ""LIKE""
+    }
+  }, 
+  ""thankful"": {
+    ""data"": [], 
+    ""summary"": {
+      ""total_count"": 0, 
+      ""viewer_reaction"": ""LIKE""
+    }
+  }, 
+  ""id"": ""10100996730306423_10101331756810623"", 
+  ""angry"": {
+    ""data"": [], 
+    ""summary"": {
+      ""total_count"": 0, 
+      ""viewer_reaction"": ""LIKE""
+    }
+  }
+}
+>>>
+ "

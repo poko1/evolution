@@ -1,0 +1,13 @@
+,SOCode
+3751,"$key = 'password to (en/de)crypt';
+$string = ' string to be encrypted '; // note the spaces
+ $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, md5(md5($key))));
+ $decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($encrypted), MCRYPT_MODE_CBC, md5(md5($key))), ""\0"");
+ echo 'Encrypted:' . ""\n"";
+var_dump($encrypted); // ""ey7zu5zBqJB0rGtIn5UB1xG03efyCp+KSNR4/GAv14w=""
+
+echo ""\n"";
+
+echo 'Decrypted:' . ""\n"";
+var_dump($decrypted); // "" string to be encrypted ""
+ "

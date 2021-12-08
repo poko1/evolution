@@ -1,0 +1,53 @@
+,SOCode
+3783,"Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+ Cache-Control Expires Pragma Expires Cache-Control Expires no-store Cache-Control: no-cache Cache-Control: no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+ Pragma Cache-Control: no-store, must-revalidate
+Expires: 0
+ Expires Cache-Control: no-store, must-revalidate
+ Date Cache-Control Expires Date: Wed, 24 Aug 2016 18:32:02 GMT
+Expires: 0
+ Cache-Control max-age Cache-Control Last-Modified header(""Cache-Control: no-cache, no-store, must-revalidate""); // HTTP 1.1.
+header(""Pragma: no-cache""); // HTTP 1.0.
+header(""Expires: 0""); // Proxies.
+ response.setHeader(""Cache-Control"", ""no-cache, no-store, must-revalidate""); // HTTP 1.1.
+response.setHeader(""Pragma"", ""no-cache""); // HTTP 1.0.
+response.setHeader(""Expires"", ""0""); // Proxies.
+ Response.Cache.SetCacheability(HttpCacheability.NoCache);  // HTTP 1.1.
+Response.Cache.AppendCacheExtension(""no-store, must-revalidate"");
+Response.AppendHeader(""Pragma"", ""no-cache""); // HTTP 1.0.
+Response.AppendHeader(""Expires"", ""0""); // Proxies.
+ Response.AppendHeader(""Cache-Control"", ""no-cache, no-store, must-revalidate""); // HTTP 1.1.
+Response.AppendHeader(""Pragma"", ""no-cache""); // HTTP 1.0.
+Response.AppendHeader(""Expires"", ""0""); // Proxies.
+ Response.addHeader ""Cache-Control"", ""no-cache, no-store, must-revalidate"" ' HTTP 1.1.
+Response.addHeader ""Pragma"", ""no-cache"" ' HTTP 1.0.
+Response.addHeader ""Expires"", ""0"" ' Proxies.
+ response.headers[""Cache-Control""] = ""no-cache, no-store, must-revalidate"" # HTTP 1.1.
+response.headers[""Pragma""] = ""no-cache"" # HTTP 1.0.
+response.headers[""Expires""] = ""0"" # Proxies.
+ responseWriter.Header().Set(""Cache-Control"", ""no-cache, no-store, must-revalidate"") // HTTP 1.1.
+responseWriter.Header().Set(""Pragma"", ""no-cache"") // HTTP 1.0.
+responseWriter.Header().Set(""Expires"", ""0"") // Proxies.
+ .htaccess <IfModule mod_headers.c>
+    Header set Cache-Control ""no-cache, no-store, must-revalidate""
+    Header set Pragma ""no-cache""
+    Header set Expires 0
+</IfModule>
+ <meta http-equiv=""Cache-Control"" content=""no-cache, no-store, must-revalidate"" />
+<meta http-equiv=""Pragma"" content=""no-cache"" />
+<meta http-equiv=""Expires"" content=""0"" />
+ def my_api_call(context, request):
+
+    # disable caching
+    request.response.headerlist.extend(
+        (
+            ('Cache-Control', 'no-cache, no-store, must-revalidate'),
+            ('Pragma', 'no-cache'),
+            ('Expires', '0')
+        )
+    )
+ <meta http-equiv> file:// <meta http-equiv> http-equiv "

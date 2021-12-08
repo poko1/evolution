@@ -1,0 +1,11 @@
+,SOCode
+3957,"os.path.split os.path.basename ntpath import ntpath
+ntpath.basename(""a/b/c"")
+ def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
+ >>> paths = ['a/b/c/', 'a/b/c', '\\a\\b\\c', '\\a\\b\\c\\', 'a\\b\\c', 
+...     'a/b/../../a/b/c/', 'a/b/../../a/b/c']
+>>> [path_leaf(path) for path in paths]
+['c', 'c', 'c', 'c', 'c', 'c', 'c']
+ r'a/b\c' b\c a c b a "

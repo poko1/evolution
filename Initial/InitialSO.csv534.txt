@@ -1,0 +1,11 @@
+,SOCode
+534,"console if (window.console && window.console.firebug) {
+  //Firebug is enabled
+}
+ window.console.firebug if (window.console && (window.console.firebug || window.console.exception)) {
+  //Firebug is enabled
+}
+ if (document.getUserData('firebug-Token')) ...
+if (console.log.toString().indexOf('apply') != -1) ...
+if (typeof console.assert(1) == 'string') ...
+ "

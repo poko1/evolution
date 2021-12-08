@@ -1,0 +1,37 @@
+,SOCode
+4058,"CREATE TYPE valid_colors AS ENUM ('red', 'green', 'blue');
+
+CREATE TABLE t (
+    color VALID_COLORS
+);
+ SELECT  n.nspname AS enum_schema,  
+        t.typname AS enum_name,  
+        e.enumlabel AS enum_value
+FROM    pg_type t JOIN 
+        pg_enum e ON t.oid = e.enumtypid JOIN 
+        pg_catalog.pg_namespace n ON n.oid = t.typnamespace
+WHERE   t.typname = 'valid_colors'
+
+ enum_schema | enum_name     | enum_value 
+-------------+---------------+------------
+ public      | valid_colors  | red
+ public      | valid_colors  | green
+ public      | valid_colors  | blue
+ SELECT FROM t WHERE color LIKE 'bl%'; 
+ CREATE TABLE t (
+    colors TEXT CHECK (colors IN ('red', 'green', 'blue'))
+);
+ CREATE TABLE valid_colors (
+    id SERIAL PRIMARY KEY NOT NULL,
+    color TEXT
+);
+
+INSERT INTO valid_colors (colors) VALUES 
+    ('red'),
+    ('green'),
+    ('blue');
+
+CREATE TABLE t (
+    color_id INTEGER REFERENCES valid_colors (id)
+);
+ "

@@ -1,0 +1,39 @@
+,SOCode
+37,"#!/usr/bin/env bash
+
+SCRIPT_DIR=""$( cd -- ""$( dirname -- ""${BASH_SOURCE[0]}"" )"" &> /dev/null && pwd )""
+ #!/usr/bin/env bash
+
+SOURCE=""${BASH_SOURCE[0]}""
+while [ -h ""$SOURCE"" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR=""$( cd -P ""$( dirname ""$SOURCE"" )"" >/dev/null 2>&1 && pwd )""
+  SOURCE=""$(readlink ""$SOURCE"")""
+  [[ $SOURCE != /* ]] && SOURCE=""$DIR/$SOURCE"" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR=""$( cd -P ""$( dirname ""$SOURCE"" )"" >/dev/null 2>&1 && pwd )""
+ source bash -c cd $CDPATH update_terminal_cwd >&2 >/dev/null 2>&1 cd #!/usr/bin/env bash
+
+SOURCE=""${BASH_SOURCE[0]}""
+while [ -h ""$SOURCE"" ]; do # resolve $SOURCE until the file is no longer a symlink
+  TARGET=""$(readlink ""$SOURCE"")""
+  if [[ $TARGET == /* ]]; then
+    echo ""SOURCE '$SOURCE' is an absolute symlink to '$TARGET'""
+    SOURCE=""$TARGET""
+  else
+    DIR=""$( dirname ""$SOURCE"" )""
+    echo ""SOURCE '$SOURCE' is a relative symlink to '$TARGET' (relative to '$DIR')""
+    SOURCE=""$DIR/$TARGET"" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+  fi
+done
+echo ""SOURCE is '$SOURCE'""
+RDIR=""$( dirname ""$SOURCE"" )""
+DIR=""$( cd -P ""$( dirname ""$SOURCE"" )"" >/dev/null 2>&1 && pwd )""
+if [ ""$DIR"" != ""$RDIR"" ]; then
+  echo ""DIR '$RDIR' resolves to '$DIR'""
+fi
+echo ""DIR is '$DIR'""
+ SOURCE './scriptdir.sh' is a relative symlink to 'sym2/scriptdir.sh' (relative to '.')
+SOURCE is './sym2/scriptdir.sh'
+DIR './sym2' resolves to '/home/ubuntu/dotfiles/fo fo/real/real1/real2'
+DIR is '/home/ubuntu/dotfiles/fo fo/real/real1/real2'
+ "

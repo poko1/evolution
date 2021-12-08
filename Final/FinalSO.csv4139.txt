@@ -1,0 +1,21 @@
+,SOCode
+4139,">>> unichr(0xd800)+unichr(0xdc00)
+u'\U00010000'
+ unichr() unichr() ValueError unichr() chr() chr(0x10000) unicode unichr() unicode unicode unichr() ValueError def unichr_supplemental(scalar):
+     try:
+         return unichr(scalar)
+     except ValueError:
+         return unichr( 0xd800 + ((scalar-0x10000)//0x400) ) \
+               +unichr( 0xdc00 + ((scalar-0x10000)% 0x400) )
+
+>>> unichr_supplemental(0x41),len(unichr_supplemental(0x41))
+(u'A', 1)
+>>> unichr_supplemental(0x10000), len(unichr_supplemental(0x10000))
+(u'\U00010000', 2)
+ string string unicode >>> '\x00\x00\x00\x41'.decode('utf-32be'), \
+... len('\x00\x00\x00\x41'.decode('utf-32be'))
+(u'A', 1)
+>>> '\x00\x01\x00\x00'.decode('utf-32be'), \
+... len('\x00\x01\x00\x00'.decode('utf-32be'))
+(u'\U00010000', 2)
+ "

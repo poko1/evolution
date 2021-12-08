@@ -1,0 +1,3 @@
+,SOCode
+4164,"getLanguageNativeName(""cv""); // --> ""чӑваш чӗлхи""
+ "

@@ -1,0 +1,3 @@
+,SOCode
+4184,"this.hasWheels = hasWheels !== false;
+ true hasWheels false null undefined true "

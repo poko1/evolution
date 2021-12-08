@@ -1,0 +1,4 @@
+,SOCode
+881,">>> 'hello world'[::-1]
+'dlrow olleh'
+ [begin:end:step] "

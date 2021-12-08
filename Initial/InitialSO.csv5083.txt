@@ -1,0 +1,21 @@
+,SOCode
+5083,"private Intent getExplicitIapIntent() {
+        PackageManager pm = mContext.getPackageManager();
+        Intent implicitIntent = new Intent(""com.android.vending.billing.InAppBillingService.BIND"");
+        List<ResolveInfo> resolveInfos = pm.queryIntentServices(implicitIntent, 0);
+
+        // Is somebody else trying to intercept our IAP call?
+        if (resolveInfos == null || resolveInfos.size() != 1) {
+            return null;
+        }
+
+        ResolveInfo serviceInfo = resolveInfos.get(0);
+        String packageName = serviceInfo.serviceInfo.packageName;
+        String className = serviceInfo.serviceInfo.name;
+        ComponentName component = new ComponentName(packageName, className);
+        Intent iapIntent = new Intent();
+        iapIntent.setComponent(component);
+        return iapIntent;
+    }
+ intent.setPackage(""com.android.vending"");
+ "

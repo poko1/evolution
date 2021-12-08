@@ -1,0 +1,4 @@
+,SOCode
+3770,"[img]xxx"" onerror=""alert('JS injection!')[/img]
+ javascript: & % & < > (\x02[^\x03]*\x03) \x02html tags\x03 &<> &<> \[ (i|b|color|url|somethingelse) \=? ([^]]+)? \] (?: ([^]]*) \[\/\1\] )
+ VERBOSE "

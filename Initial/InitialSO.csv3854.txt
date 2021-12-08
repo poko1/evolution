@@ -1,0 +1,3 @@
+,SOCode
+3854,".lastIndexOf haystack.lastIndexOf(needle, 0) === 0
+ haystack needle 0 haystack haystack needle haystack "

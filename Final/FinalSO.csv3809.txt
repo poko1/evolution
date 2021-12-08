@@ -1,0 +1,8 @@
+,SOCode
+3809,"jquery.ajax.active jQuery.cache jQuery.data() $.ajaxStart() $.ajaxStop() if ( s.global && ! jQuery.active++ ) {
+  jQuery.event.trigger( ""ajaxStart"" );
+}
+ $.ajaxStart() jQuery.active++ !0 == true beforeSend return false complete if ( s.global && ! --jQuery.active ) {
+  jQuery.event.trigger( ""ajaxStop"" );
+}
+ $.ajaxStop() "

@@ -1,0 +1,6 @@
+,SOCode
+3784,"F(x) [a,b] C(y) = \int_a^y F(x) dx
+ C^{-1} z x_i = C^{-1}(z_i)
+ F(x) = ke^{-kx} [0,infinity] C(y) = 1 - e^{-ky}
+ x = -1/k  ln(1 - z)
+ [0,1) "

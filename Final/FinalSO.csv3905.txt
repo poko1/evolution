@@ -1,0 +1,93 @@
+,SOCode
+3905,"request_text = (
+    b'GET /who/ken/trust.html HTTP/1.1\r\n'
+    b'Host: cm.bell-labs.com\r\n'
+    b'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3\r\n'
+    b'Accept: text/html;q=0.9,text/plain\r\n'
+    b'\r\n'
+)
+ Message from email.parser import BytesParser
+request_line, headers_alone = request_text.split(b'\r\n', 1)
+headers = BytesParser().parsebytes(headers_alone)
+
+print(len(headers))     # -> ""3""
+print(headers.keys())   # -> ['Host', 'Accept-Charset', 'Accept']
+print(headers['Host'])  # -> ""cm.bell-labs.com""
+ BaseHTTPRequestHandler BytesIO() raw_requestline from http.server import BaseHTTPRequestHandler
+from io import BytesIO
+
+class HTTPRequest(BaseHTTPRequestHandler):
+    def __init__(self, request_text):
+        self.rfile = BytesIO(request_text)
+        self.raw_requestline = self.rfile.readline()
+        self.error_code = self.error_message = None
+        self.parse_request()
+
+    def send_error(self, code, message):
+        self.error_code = code
+        self.error_message = message
+ # Using this new class is really easy!
+
+request = HTTPRequest(request_text)
+
+print(request.error_code)       # None  (check this first)
+print(request.command)          # ""GET""
+print(request.path)             # ""/who/ken/trust.html""
+print(request.request_version)  # ""HTTP/1.1""
+print(len(request.headers))     # 3
+print(request.headers.keys())   # ['Host', 'Accept-Charset', 'Accept']
+print(request.headers['host'])  # ""cm.bell-labs.com""
+ error_code None # Parsing can result in an error code and message
+
+request = HTTPRequest(b'GET\r\nHeader: Value\r\n\r\n')
+
+print(request.error_code)     # 400
+print(request.error_message)  # ""Bad request syntax ('GET')""
+ request_text = (
+    'GET /who/ken/trust.html HTTP/1.1\r\n'
+    'Host: cm.bell-labs.com\r\n'
+    'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3\r\n'
+    'Accept: text/html;q=0.9,text/plain\r\n'
+    '\r\n'
+    )
+ # Ignore the request line and parse only the headers
+
+from mimetools import Message
+from StringIO import StringIO
+request_line, headers_alone = request_text.split('\r\n', 1)
+headers = Message(StringIO(headers_alone))
+
+print len(headers)     # -> ""3""
+print headers.keys()   # -> ['accept-charset', 'host', 'accept']
+print headers['Host']  # -> ""cm.bell-labs.com""
+ from BaseHTTPServer import BaseHTTPRequestHandler
+from StringIO import StringIO
+
+class HTTPRequest(BaseHTTPRequestHandler):
+    def __init__(self, request_text):
+        self.rfile = StringIO(request_text)
+        self.raw_requestline = self.rfile.readline()
+        self.error_code = self.error_message = None
+        self.parse_request()
+
+    def send_error(self, code, message):
+        self.error_code = code
+        self.error_message = message
+ # Using this new class is really easy!
+
+request = HTTPRequest(request_text)
+
+print request.error_code       # None  (check this first)
+print request.command          # ""GET""
+print request.path             # ""/who/ken/trust.html""
+print request.request_version  # ""HTTP/1.1""
+print len(request.headers)     # 3
+print request.headers.keys()   # ['accept-charset', 'host', 'accept']
+print request.headers['host']  # ""cm.bell-labs.com""
+ # Parsing can result in an error code and message
+
+request = HTTPRequest('GET\r\nHeader: Value\r\n\r\n')
+
+print request.error_code     # 400
+print request.error_message  # ""Bad request syntax ('GET')""
+ "

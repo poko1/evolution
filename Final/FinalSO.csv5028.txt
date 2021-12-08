@@ -1,0 +1,6 @@
+,SOCode
+5028,"""\u00c2\u00a9"" json >>> print json.dumps(u'\xc2\xa9')
+""\u00c2\u00a9""
+ s = unicode('©', 'utf-8').encode('utf-8')
+s2 = u''.join(unichr(ord(c)) for c in s)
+ ""\xc2\xa9"" "

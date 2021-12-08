@@ -1,0 +1,9 @@
+,SOCode
+4183,"$id = 55;
+$array = array(
+  "" $id"" => $value
+);
+ foreach( $array as $key => $value ) {
+  echo $key;
+}
+ "

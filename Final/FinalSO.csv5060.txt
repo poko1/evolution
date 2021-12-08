@@ -1,0 +1,111 @@
+,SOCode
+5060,"{{#xif EXPRESSION}} {{else}} {{/xif}} encodeURIComponent(property) template( {name: 'Sam', age: '20' } ) age string parseInt() <p>
+ {{#xif "" name == 'Sam' && age === '12' "" }}
+   BOOM
+ {{else}}
+   BAMM
+ {{/xif}}
+</p>
+ <p>
+  BOOM
+</p>
+  Handlebars.registerHelper(""xif"", function (expression, options) {
+    return Handlebars.helpers[""x""].apply(this, [expression, options]) ? options.fn(this) : options.inverse(this);
+  });
+ {{x EXPRESSION}} parseInt(property) template( {name: 'Sam', age: '20' } ) age string <p>Url: {{x ""'hi' + name + ', ' + window.location.href + ' <---- this is your href,' + ' your Age is:' + parseInt(this.age, 10)""}}</p>
+ <p>Url: hi Sam, http://example.com <---- this is your href, your Age is: 20</p>
+ Handlebars.registerHelper(""x"", function(expression, options) {
+  var result;
+
+  // you can change the context, or merge it with options.data, options.hash
+  var context = this;
+
+  // yup, i use 'with' here to expose the context's properties as block variables
+  // you don't need to do {{x 'this.age + 2'}}
+  // but you can also do {{x 'age + 2'}}
+  // HOWEVER including an UNINITIALIZED var in a expression will return undefined as the result.
+  with(context) {
+    result = (function() {
+      try {
+        return eval(expression);
+      } catch (e) {
+        console.warn('•Expression: {{x \'' + expression + '\'}}\n•JS-Error: ', e, '\n•Context: ', context);
+      }
+    }).call(context); // to make eval's lexical this=context
+  }
+  return result;
+});
+
+Handlebars.registerHelper(""xif"", function(expression, options) {
+  return Handlebars.helpers[""x""].apply(this, [expression, options]) ? options.fn(this) : options.inverse(this);
+});
+
+var data = [{
+  firstName: 'Joan',
+  age: '21',
+  email: 'joan@aaa.bbb'
+}, {
+  firstName: 'Sam',
+  age: '18',
+  email: 'sam@aaa.bbb'
+}, {
+  firstName: 'Perter',
+  lastName: 'Smith',
+  age: '25',
+  email: 'joseph@aaa.bbb'
+}];
+
+var source = $(""#template"").html();
+var template = Handlebars.compile(source);
+$(""#main"").html(template(data)); h1 {
+  font-size: large;
+}
+.content {
+  padding: 10px;
+}
+.person {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid grey;
+} <script src=""https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js""></script>
+<script src=""http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js""></script>
+
+<script id=""template"" type=""text/x-handlebars-template"">
+  <div class=""content"">
+    {{#each this}}
+    <div class=""person"">
+      <h1>{{x  ""'Hi ' + firstName""}}, {{x 'lastName'}}</h1>
+      <div>{{x '""you were born in "" + ((new Date()).getFullYear() - parseInt(this.age, 10)) '}}</div>
+      {{#xif 'parseInt(age) >= 21'}} login here:
+      <a href=""http://foo.bar?email={{x 'encodeURIComponent(email)'}}"">
+        	http://foo.bar?email={{x 'encodeURIComponent(email)'}}
+        </a>
+      {{else}} Please go back when you grow up. {{/xif}}
+    </div>
+    {{/each}}
+  </div>
+</script>
+
+<div id=""main""></div> // data
+{name: 'Sam', age: '20', address: { city: 'yomomaz' } }
+
+// in template
+// notice how the expression wrap all the string with quotes, and even the variables
+// as they will become strings by the time they hit the helper
+// play with it, you will immediately see the errored expressions and figure it out
+
+{{#with address}}
+    {{z '""hi "" + ""' ../this.name '"" + "" you live with "" + ""' city '""' }}
+{{/with}}
+ Handlebars.registerHelper(""z"", function () {
+    var options = arguments[arguments.length - 1]
+    delete arguments[arguments.length - 1];
+    return Handlebars.helpers[""x""].apply(this, [Array.prototype.slice.call(arguments, 0).join(''), options]);
+});
+
+Handlebars.registerHelper(""zif"", function () {
+    var options = arguments[arguments.length - 1]
+    delete arguments[arguments.length - 1];
+    return Handlebars.helpers[""x""].apply(this, [Array.prototype.slice.call(arguments, 0).join(''), options]) ? options.fn(this) : options.inverse(this);
+});
+ "

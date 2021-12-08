@@ -1,0 +1,75 @@
+,SOCode
+5124,"Button EditText public class MyView extends RelativeLayout {
+
+
+public MyView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    addViews();
+}
+
+public MyView(Context context) {
+    super(context);
+    addViews();
+}
+
+private void addViews() {
+    View view = inflate(getContext(), R.layout.my_layout, null);
+    addView(view);
+}
+}
+ <RelativeLayout xmlns:android=""http://schemas.android.com/apk/res/android""
+android:orientation=""vertical"" android:layout_width=""match_parent""
+android:layout_height=""match_parent"">
+<EditText
+    android:layout_width=""match_parent""
+    android:layout_height=""match_parent""
+    android:id=""@+id/editText""
+    android:layout_gravity=""center_horizontal""
+    android:visibility=""gone""
+    android:singleLine=""true""/>
+
+<TextView
+    android:layout_width=""match_parent""
+    android:layout_height=""match_parent""
+    android:text=""Some Text""
+    android:id=""@+id/textView""
+    android:layout_gravity=""center_horizontal""
+    android:textAlignment=""center""
+    android:textStyle=""bold""
+    android:textSize=""30sp"" />
+
+</RelativeLayout>
+  private class MyLongClickListener implements View.OnLongClickListener {
+  EditText editText;
+  TextView textView ;
+ @Override
+        public boolean onLongClick(View view) {
+            editText =(EditText) view.findViewById(R.id.editText);
+            textView =(TextView) view.findViewById(R.id.textView);
+            editText.bringToFront();
+            textView.setVisibility(View.INVISIBLE);
+            editText.setVisibility(View.VISIBLE);
+            if (editText.requestFocus()) {
+                InputMethodManager imm = (InputMethodManager)
+                        getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+
+            }
+            textView.setText(editText.getText().toString());
+            editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if(actionId== EditorInfo.IME_ACTION_DONE){
+                        editText.setVisibility(View.INVISIBLE);
+                        textView.bringToFront();
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText(editText.getText().toString());
+                    }
+                    return false;
+                }
+            });
+
+            return true;
+        }
+}
+ "

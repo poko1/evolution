@@ -1,0 +1,144 @@
+,SOCode
+4154,"toString #08a35c percent percent percent function shadeColor1(color, percent) {  // deprecated. See below.
+    var num = parseInt(color,16),
+    amt = Math.round(2.55 * percent),
+    R = (num >> 16) + amt,
+    G = (num >> 8 & 0x00FF) + amt,
+    B = (num & 0x0000FF) + amt;
+    return (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+}
+ function shadeColor1(color, percent) {  // deprecated. See below.
+    var num = parseInt(color.slice(1),16), amt = Math.round(2.55 * percent), R = (num >> 16) + amt, G = (num >> 8 & 0x00FF) + amt, B = (num & 0x0000FF) + amt;
+    return ""#"" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+}
+ blendColors shadeColor2 shadeRGBColor shadeBlendConvert shadeColor1 function shadeColor2(color, percent) {   
+    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    return ""#""+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+}
+        
+function blendColors(c0, c1, p) {
+    var f=parseInt(c0.slice(1),16),t=parseInt(c1.slice(1),16),R1=f>>16,G1=f>>8&0x00FF,B1=f&0x0000FF,R2=t>>16,G2=t>>8&0x00FF,B2=t&0x0000FF;
+    return ""#""+(0x1000000+(Math.round((R2-R1)*p)+R1)*0x10000+(Math.round((G2-G1)*p)+G1)*0x100+(Math.round((B2-B1)*p)+B1)).toString(16).slice(1);
+}
+ #08a35c # #FF0000 shadeColor2 -1.0 1.0 blendColors 0.0 1.0 1.0 -1.0 blendColors(color, ""#FFFFFF"", 0.5) shadeColor2(color,0.5) blendColors(color,""#000000"", 0.5) shadeColor2(color,-0.5) shadeColor2 shadeColor1 function shadeRGBColor(color, percent) {
+    var f=color.split("",""),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=parseInt(f[0].slice(4)),G=parseInt(f[1]),B=parseInt(f[2]);
+    return ""rgb(""+(Math.round((t-R)*p)+R)+"",""+(Math.round((t-G)*p)+G)+"",""+(Math.round((t-B)*p)+B)+"")"";
+}
+
+function blendRGBColors(c0, c1, p) {
+    var f=c0.split("",""),t=c1.split("",""),R=parseInt(f[0].slice(4)),G=parseInt(f[1]),B=parseInt(f[2]);
+    return ""rgb(""+(Math.round((parseInt(t[0].slice(4))-R)*p)+R)+"",""+(Math.round((parseInt(t[1])-G)*p)+G)+"",""+(Math.round((parseInt(t[2])-B)*p)+B)+"")"";
+}
+ var color1 = ""rbg(63,131,163)"";
+var lighterColor = shadeRGBColor(color1, 0.5);  //  rgb(159,193,209)
+var darkerColor = shadeRGBColor(color1, -0.25); //  rgb(47,98,122)
+
+var color2 = ""rbg(244,128,0)"";
+var blend1 = blendRGBColors(color1, color2, 0.75);  //  rgb(199,129,41)
+var blend2 = blendRGBColors(color2, color1, 0.62);  //  rgb(132,130,101)
+ function shade(color, percent){
+    if (color.length > 7 ) return shadeRGBColor(color,percent);
+    else return shadeColor2(color,percent);
+}
+        
+function blend(color1, color2, percent){
+    if (color1.length > 7) return blendRGBColors(color1,color2,percent);
+    else return blendColors(color1,color2,percent);
+}
+ var color1 = shade(""rbg(63,131,163)"", 0.5);
+var color2 = shade(""#3f83a3"", 0.5);
+var color3 = blend(""rbg(63,131,163)"", ""rbg(244,128,0)"", 0.5);
+var color4 = blend(""#3f83a3"", ""#f48000"", 0.5);
+ function shadeBlend(p,c0,c1) {
+    var n=p<0?p*-1:p,u=Math.round,w=parseInt;
+    if(c0.length>7){
+        var f=c0.split("",""),t=(c1?c1:p<0?""rgb(0,0,0)"":""rgb(255,255,255)"").split("",""),R=w(f[0].slice(4)),G=w(f[1]),B=w(f[2]);
+        return ""rgb(""+(u((w(t[0].slice(4))-R)*n)+R)+"",""+(u((w(t[1])-G)*n)+G)+"",""+(u((w(t[2])-B)*n)+B)+"")""
+    }else{
+        var f=w(c0.slice(1),16),t=w((c1?c1:p<0?""#000000"":""#FFFFFF"").slice(1),16),R1=f>>16,G1=f>>8&0x00FF,B1=f&0x0000FF;
+        return ""#""+(0x1000000+(u(((t>>16)-R1)*n)+R1)*0x10000+(u(((t>>8&0x00FF)-G1)*n)+G1)*0x100+(u(((t&0x0000FF)-B1)*n)+B1)).toString(16).slice(1)
+    }
+}
+ var color1 = ""#FF343B"";
+var color2 = ""#343BFF"";
+var color3 = ""rgb(234,47,120)"";
+var color4 = ""rgb(120,99,248)"";
+var shadedcolor1 = shadeBlend(0.75,color1);
+var shadedcolor3 = shadeBlend(-0.5,color3);
+var blendedcolor1 = shadeBlend(0.333,color1,color2);
+var blendedcolor34 = shadeBlend(-0.8,color3,color4); // Same as using 0.8
+ ;) @ Mevin extension UIColor {
+    func shadeColor(factor: CGFloat) -> UIColor {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        var t: CGFloat = factor < 0 ? 0 : 1
+        var p: CGFloat = factor < 0 ? -factor : factor
+        getRed(&r, green: &g, blue: &b, alpha: &a)
+        r = (t-r)*p+r
+        g = (t-g)*p+g
+        b = (t-b)*p+b
+        return UIColor(red: r, green: g, blue: b, alpha: a)
+    }
+}
+ function shadeColor2($color, $percent) {
+    $color = str_replace(""#"", """", $color);
+    $t=$percent<0?0:255;
+    $p=$percent<0?$percent*-1:$percent;
+    $RGB = str_split($color, 2);
+    $R=hexdec($RGB[0]);
+    $G=hexdec($RGB[1]);
+    $B=hexdec($RGB[2]);
+    return '#'.substr(dechex(0x1000000+(round(($t-$R)*$p)+$R)*0x10000+(round(($t-$G)*$p)+$G‌​)*0x100+(round(($t-$B)*$p)+$B)),1);
+}
+ function shadeBlendConvert(p, from, to) {
+    if(typeof(p)!=""number""||p<-1||p>1||typeof(from)!=""string""||(from[0]!='r'&&from[0]!='#')||(typeof(to)!=""string""&&typeof(to)!=""undefined""))return null; //ErrorCheck
+    if(!this.sbcRip)this.sbcRip=function(d){
+        var l=d.length,RGB=new Object();
+        if(l>9){
+            d=d.split("","");
+            if(d.length<3||d.length>4)return null;//ErrorCheck
+            RGB[0]=i(d[0].slice(4)),RGB[1]=i(d[1]),RGB[2]=i(d[2]),RGB[3]=d[3]?parseFloat(d[3]):-1;
+        }else{
+            if(l==8||l==6||l<4)return null; //ErrorCheck
+            if(l<6)d=""#""+d[1]+d[1]+d[2]+d[2]+d[3]+d[3]+(l>4?d[4]+""""+d[4]:""""); //3 digit
+            d=i(d.slice(1),16),RGB[0]=d>>16&255,RGB[1]=d>>8&255,RGB[2]=d&255,RGB[3]=l==9||l==5?r(((d>>24&255)/255)*10000)/10000:-1;
+        }
+        return RGB;}
+    var i=parseInt,r=Math.round,h=from.length>9,h=typeof(to)==""string""?to.length>9?true:to==""c""?!h:false:h,b=p<0,p=b?p*-1:p,to=to&&to!=""c""?to:b?""#000000"":""#FFFFFF"",f=sbcRip(from),t=sbcRip(to);
+    if(!f||!t)return null; //ErrorCheck
+    if(h)return ""rgb(""+r((t[0]-f[0])*p+f[0])+"",""+r((t[1]-f[1])*p+f[1])+"",""+r((t[2]-f[2])*p+f[2])+(f[3]<0&&t[3]<0?"")"":"",""+(f[3]>-1&&t[3]>-1?r(((t[3]-f[3])*p+f[3])*10000)/10000:t[3]<0?f[3]:t[3])+"")"");
+    else return ""#""+(0x100000000+(f[3]>-1&&t[3]>-1?r(((t[3]-f[3])*p+f[3])*255):t[3]>-1?r(t[3]*255):f[3]>-1?r(f[3]*255):255)*0x1000000+r((t[0]-f[0])*p+f[0])*0x10000+r((t[1]-f[1])*p+f[1])*0x100+r((t[2]-f[2])*p+f[2])).toString(16).slice(f[3]>-1||t[3]>-1?1:3);
+}
+ //3 digit from to rgb(0,0,0,1) rgb(255,255,255,1) to to to 'c' to 0 sbcRip {0:R,1:G,2:B,0.3:A} 0 255 -1 0.0000 1.0000 null shadeBlendConvert(0.5,""salt"") = null #salt //ErrorCheck var color1 = ""rgb(114,93,20)"";
+var color2 = ""rgb(114,93,20,0.37423)"";
+var color3 = ""#67DAF0"";
+var color4 = ""#5567DAF0"";
+var color5 = ""#F3A"";
+var color6 = ""#DF3A"";
+var color7 = ""rgb(75,200,112)"";
+var color8 = ""rgb(75,200,112,0.98631)"";
+var c;
+
+// Shade (Lighten or Darken)
+c = shadeBlendConvert(0.3,color1); // rgb(114,93,20) + [30% Lighter] => rgb(156,142,91)
+c = shadeBlendConvert(-0.13,color5); // #F3A + [13% Darker]  => #de2c94
+// Shade with Conversion (use 'c' as your 'to' color)
+c = shadeBlendConvert(0.42,color2,""c""); //rgb(114,93,20,0.37423) + [42% Lighter] + [Convert] => #5fada177
+// RGB2Hex & Hex2RGB Conversion Only (set percentage to zero)
+c = shadeBlendConvert(0,color6,""c""); // #DF3A + [Convert] => rgb(255,51,170,0.8667)
+// Blending
+c = shadeBlendConvert(-0.13,color2,color8); // rgb(114,93,20,0.37423) + rgb(75,200,112,0.98631) + [13% Blend] => rgb(109,107,32,0.4538)
+c = shadeBlendConvert(0.65,color2,color7); // rgb(114,93,20,0.37423) + rgb(75,200,112) + [65% Blend] => rgb(89,163,80,0.37423)
+// Blending with Conversion  (result is in the 'to' color format)
+c = shadeBlendConvert(0.3,color1,color3); // rgb(114,93,20) + #67DAF0 + [30% Blend] + [Convert] => #6f8356
+c = shadeBlendConvert(-0.13,color4,color2); // #5567DAF0 + rgb(114,93,20,0.37423) + [13% Blend] + [Convert] => rgb(104,202,211,0.3386)
+// Error Checking
+c = shadeBlendConvert(0.3,""#FFBAA""); // #FFBAA + [30% Lighter] => null
+c = shadeBlendConvert(30,color1,color5); // rgb(114,93,20) + #F3A + [3000% Blend] => null
+// A pound of salt is jibberish  (Error Check Fail)
+c = shadeBlendConvert(0.3,""#salt"");  // #salt + [30% Lighter] => #004d4d4d
+// Ripping
+c = sbcRip(color4); // #5567DAF0 + [Rip] =>> {0:103,1:218,2:240,3:0.3333}
+ "

@@ -1,0 +1,12 @@
+,SOCode
+3885,"var log = Function.prototype.bind.call(console.log, console);
+ log.apply(console, [""this"", ""is"", ""a"", ""test""]);
+//-> ""thisisatest""
+ console if (Function.prototype.bind && window.console && typeof console.log == ""object""){
+    [
+      ""log"",""info"",""warn"",""error"",""assert"",""dir"",""clear"",""profile"",""profileEnd""
+    ].forEach(function (method) {
+        console[method] = this.bind(console[method], console);
+    }, Function.prototype.call);
+}
+ Function.prototype.bind Array.prototype.forEach console.log "

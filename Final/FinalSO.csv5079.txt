@@ -1,0 +1,17 @@
+,SOCode
+5079,"function permutator (arr) {
+  var permutations = [];
+  if (arr.length === 1) {
+    return [ arr ];
+  }
+
+  for (var i = 0; i <  arr.length; i++) { 
+    var subPerms = permutator(arr.slice(0, i).concat(arr.slice(i + 1)));
+    for (var j = 0; j < subPerms.length; j++) {
+      subPerms[j].unshift(arr[i]);
+      permutations.push(subPerms[j]);
+    }
+  }
+  return permutations;
+}
+ "

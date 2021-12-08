@@ -1,0 +1,19 @@
+,SOCode
+877,"root linux$ cat /proc/sys/net/ipv4/ip_local_port_range 
+32768   61000
+
+solaris$ /usr/sbin/ndd /dev/tcp tcp_smallest_anon_port tcp_largest_anon_port
+32768
+
+65535
+
+macosx$ sysctl net.inet.ip.portrange.first net.inet.ip.portrange.last
+net.inet.ip.portrange.first: 49152
+net.inet.ip.portrange.last: 65535
+
+vista> netsh int ipv4 show dynamicport tcp
+Protocol tcp Dynamic Port Range
+---------------------------------
+Start Port : 49152
+Number of Ports : 16384 
+ "

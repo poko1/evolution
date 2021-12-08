@@ -1,0 +1,18 @@
+,SOCode
+859,"pathlib.Path.mkdir import pathlib
+pathlib.Path(""/tmp/path/to/desired/directory"").mkdir(parents=True, exist_ok=True)
+ exist_ok os.makedirs exist_ok True mkdir -p mode OSError import os
+os.makedirs(""/tmp/path/to/desired/directory"", exist_ok=True)
+ os.makedirs import errno    
+import os
+
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python ≥ 2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        # possibly handle other errno cases here, otherwise finally:
+        else:
+            raise
+ "

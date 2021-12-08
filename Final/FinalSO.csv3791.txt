@@ -1,0 +1,13 @@
+,SOCode
+3791,"pathlib.Path.rglob pathlib from pathlib import Path
+
+for path in Path('src').rglob('*.c'):
+    print(path.name)
+ glob.glob('**/*.c') recursive . os.walk os.walk fnmatch.filter import fnmatch
+import os
+
+matches = []
+for root, dirnames, filenames in os.walk('src'):
+    for filename in fnmatch.filter(filenames, '*.c'):
+        matches.append(os.path.join(root, filename))
+ "

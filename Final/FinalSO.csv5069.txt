@@ -1,0 +1,28 @@
+,SOCode
+5069,"const { promises: { readdir } } = require('fs')
+
+const getDirectories = async source =>
+  (await readdir(source, { withFileTypes: true }))
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+ const { readdir } = require('fs')
+
+const getDirectories = (source, callback) =>
+  readdir(source, { withFileTypes: true }, (err, files) => {
+    if (err) {
+      callback(err)
+    } else {
+      callback(
+        files
+          .filter(dirent => dirent.isDirectory())
+          .map(dirent => dirent.name)
+      )
+    }
+  })
+ const { readdirSync } = require('fs')
+
+const getDirectories = source =>
+  readdirSync(source, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+ "

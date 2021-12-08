@@ -1,0 +1,5 @@
+,SOCode
+3972,"\ function escapeRegExp(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+ "

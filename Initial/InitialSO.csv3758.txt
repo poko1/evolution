@@ -1,0 +1,23 @@
+,SOCode
+3758,"uniconsole.py import sys, os
+
+if sys.platform == ""win32"":
+    class UniStream(object):
+        __slots__= (""fileno"", ""softspace"",)
+
+        def __init__(self, fileobject):
+            self.fileno = fileobject.fileno()
+            self.softspace = False
+
+        def write(self, text):
+            os.write(self.fileno, text.encode(""utf_8"") if isinstance(text, unicode) else text)
+
+    sys.stdout = UniStream(sys.stdout)
+    sys.stderr = UniStream(sys.stderr)
+ try:
+    import uniconsole
+except ImportError:
+    sys.exc_clear()  # could be just pass, of course
+else:
+    del uniconsole  # reduce pollution, not needed anymore
+ chcp 65001 Lucida Console DejaVu Sans Mono stdout stderr raw_input sys.stdin cp65001 utf_8 encodings\aliases.py "

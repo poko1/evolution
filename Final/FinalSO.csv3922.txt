@@ -1,0 +1,11 @@
+,SOCode
+3922,"var newFunc = oldFunc.bind({}); //clones the function with '{}' acting as its new 'this' parameter
+ .bind this bind() apply() function oldFunc() {
+  console.log(this.msg);
+}
+var newFunc = oldFunc.bind({ msg: ""You shall not pass!"" }); // this object is binded
+newFunc.apply({ msg: ""hello world"" }); //logs ""You shall not pass!"" instead
+ instanceof newFunc oldFunc (new newFunc()) instanceof oldFunc; //gives true
+(new oldFunc()) instanceof newFunc; //gives true as well
+newFunc == oldFunc; //gives false however
+ "

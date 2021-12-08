@@ -1,0 +1,9 @@
+,SOCode
+4113,".stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+ $('body').addClass('stop-scrolling')
+ touchmove $('body').bind('touchmove', function(e){e.preventDefault()})
+ $('body').unbind('touchmove')
+ "

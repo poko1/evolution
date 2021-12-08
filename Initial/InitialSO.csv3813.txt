@@ -1,0 +1,61 @@
+,SOCode
+3813,"<!-- jQuery is required -->
+
+<script src=""http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js""></script>
+
+
+<!-- this is the plugin -->
+
+<script>
+  jQuery.fn.contentChange = function(callback){
+    var elms = jQuery(this);
+    elms.each(
+      function(i){
+        var elm = jQuery(this);
+        elm.data(""lastContents"", elm.html());
+        window.watchContentChange = window.watchContentChange ? window.watchContentChange : [];
+        window.watchContentChange.push({""element"": elm, ""callback"": callback});
+      }
+    )
+    return elms;
+  }
+  setInterval(function(){
+    if(window.watchContentChange){
+      for( i in window.watchContentChange){
+        if(window.watchContentChange[i].element.data(""lastContents"") != window.watchContentChange[i].element.html()){
+          window.watchContentChange[i].callback.apply(window.watchContentChange[i].element);
+          window.watchContentChange[i].element.data(""lastContents"", window.watchContentChange[i].element.html())
+        };
+      }
+    }
+  },500);
+</script>
+
+
+
+<!-- some divs to test it with -->
+
+<p>Testing it:  (click on divs to change contents)</p>
+
+<div id=""a"" onclick=""$(this).append('i')"">Hi</div>
+<div id=""b"" onclick=""$(this).append('o')"">Ho</div>
+<div class=""c"" onclick=""$(this).append('y')"">He</div>
+<div class=""c"" onclick=""$(this).append('w')"">He</div>
+<div class=""c"" onclick=""$(this).append('a')"">He</div>
+
+
+
+
+<!-- this is how to actually use it -->
+
+<script>
+  function showChange(){
+    var element = $(this);
+    alert(""it was '""+element.data(""lastContents"")+""' and now its '""+element.html()+""'"");
+  }
+
+  $('#a').contentChange(function(){  alert(""Hi!"") });
+  $('div#b').contentChange( showChange );
+  $('.c').contentChange(function(){  alert(""He he he..."") });
+</script>
+ "

@@ -1,0 +1,13 @@
+,SOCode
+5042,"\R \R ASCII preg_match('~\R~', $string);
+ (?>\r\n|\n|\r|\f|\x0b|\x85)
+ ASCII U+2028 U+2029 u preg_match('~\R~u', $string);
+ u (?>\r\n|\n|\r|\f|\x0b|\x85|\x{2028}|\x{2029})
+ \R CR LF CRLF preg_match('~(*BSR_ANYCRLF)\R~', $string);
+ (?>\r\n|\n|\r)
+ (*CR)        carriage return
+(*LF)        linefeed
+(*CRLF)      carriage return, followed by linefeed
+(*ANYCRLF)   any of the three above
+(*ANY)       all Unicode newline sequences
+ \R "

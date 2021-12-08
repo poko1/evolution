@@ -1,0 +1,15 @@
+,SOCode
+3961,"data EditRole data EditRole DisplayRole def data(self, index, role):
+    if role == Qt.DisplayRole or role == Qt.EditRole:
+        try:
+            row = index.row()
+            col = index.column()
+            name = self._struct[col]['name']
+            return self._data[row][name]
+        except:
+            pass
+    elif role == Qt.CheckStateRole:
+        return None
+
+    return None
+ "

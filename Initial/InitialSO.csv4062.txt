@@ -1,0 +1,26 @@
+,SOCode
+4062,"DOMDocument::loadHTML() ISO-8859-1 Windows-1252 ISO-8859-1 UTF-8 mb_convert_encoding HTML-ENTITIES € -> &euro; ☆ -> &#9734; $html = preg_replace_callback('/[\x{80}-\x{10FFFF}]/u', function($match) {
+    list($utf8) = $match;
+    $entity = mb_convert_encoding($utf8, 'HTML-ENTITIES', 'UTF-8');
+    printf(""%s -> %s\n"", $utf8, $entity);
+    return $entity;
+}, $html);
+ ☆ -> &#9734;
+☆ -> &#9734;
+☆ -> &#9734;
+ loadHTML US-ASCII $us_ascii = mb_convert_encoding($utf_8, 'HTML-ENTITIES', 'UTF-8');
+ mb_convert_encoding <meta http-equiv=""content-type"" content=""text/html; charset=utf-8"">
+ $dom = new DomDocument();
+$dom->loadHTML('<meta http-equiv=""content-type"" content=""text/html; charset=utf-8"">'.$html);
+ <head> <!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv=""content-type"" content=""text/html; charset=utf-8"">
+    <meta charset=""utf-8"">
+    <title>Test!</title>
+  </head>
+  <body>
+    <h1>☆ Hello ☆ World ☆</h1>    
+  </body>
+</html>
+ "

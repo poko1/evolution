@@ -1,0 +1,21 @@
+,SOCode
+5095,"pgbuttons: false pginput: false rowList: [] viewrecords: false rowList: [] viewrecords: false $(""#grid_toppager_center"").hide();
+$(""#grid_toppager_right"").hide();
+$(""#grid_toppager_left"").attr(""colspan"", ""3"");
+ $(""#grid_toppager_right"").hide();
+$(""#grid_toppager_left"").attr(""colspan"", ""2"");
+ $(""#grid_toppager_left"").hide();
+$(""#grid_toppager_right"").hide();
+$(""#grid_toppager_center"").attr(""colspan"", ""2"");
+$(""#grid_toppager_center"").css({width: """", ""text-align"": ""left"", ""white-space"": """"});
+$(""#grid_toppager_center"").find("">.navtable"").append(
+    $(""#grid_toppager_center"").find("">table.ui-pg-table"")
+);
+$(""#grid_toppager_center"").find("">.navtable"").children().each(function() {
+    $(this).css(""float"", ""left"");
+});
+$grid.bind(""jqGridAfterGridComplete"", function () {
+    var p = $(this).jqGrid(""getGridParam""), $toppager = $(p.toppager);
+    $toppager.find("".navtable"").css(""width"", """");
+});
+ "

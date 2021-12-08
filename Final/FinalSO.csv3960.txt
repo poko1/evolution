@@ -1,0 +1,7 @@
+,SOCode
+3960,".pageX /^(?:mouse|contextmenu)|click/
+ touchstart // add more if necessary, I don't know much about touch events
+$.each(""touchstart touchmove touchend"".split("" ""), function(i, name) {
+    jQuery.event.fixHooks[name] = jQuery.event.mouseHooks;
+});
+ "

@@ -1,0 +1,51 @@
+,SOCode
+5041,"function bytesToSize(bytes) {
+   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+   if (bytes == 0) return '0 Byte';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+ function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+ function formatBytes(a,b=2,k=1024){with(Math){let d=floor(log(a)/log(k));return 0==a?""0 Bytes"":parseFloat((a/pow(k,d)).toFixed(max(0,b)))+"" ""+[""Bytes"",""KB"",""MB"",""GB"",""TB"",""PB"",""EB"",""ZB"",""YB""][d]}}
+ // formatBytes(bytes,decimals)
+
+formatBytes(1024);       // 1 KB
+formatBytes('1024');     // 1 KB
+formatBytes(1234);       // 1.21 KB
+formatBytes(1234, 3);    // 1.205 KB
+ function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+// ** Demo code **
+var p = document.querySelector('p'),
+    input = document.querySelector('input');
+    
+function setText(v){
+    p.innerHTML = formatBytes(v);
+}
+// bind 'input' event
+input.addEventListener('input', function(){ 
+    setText( this.value )
+})
+// set initial text
+setText(input.value); <input type=""text"" value=""1000"">
+<p></p> k = 1000 sizes = [""...""] "

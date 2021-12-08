@@ -1,0 +1,56 @@
+,SOCode
+3975,"state chrome.* chrome.* <script> script.js var s = document.createElement('script');
+s.src = chrome.extension.getURL(""script.js"");
+s.onload = function() {
+    this.parentNode.removeChild(this);
+};
+(document.head||document.documentElement).appendChild(s);
+ ""manifest_version"": 2 script.js ""web_accessible_resources"" var actualCode = ['/* Code here. Example: */alert(0);',
+                  ' // Beware! This array have to be joined',
+                  ' // using a newline. Otherwise, missing semicolons',
+                  ' //  or single-line comments (//) will mess up your',
+                  ' //  code ----->'].join('\n');
+
+var script = document.createElement('script');
+script.textContent = actualCode;
+(document.head||document.documentElement).appendChild(script);
+script.parentNode.removeChild(script);
+ var actualCode = '(' + function() {
+    // All code is executed in a local scope.
+    // For example, the following does NOT overwrite the global `alert` method
+    var alert = null;
+    // To overwrite a global variable, prefix `window`:
+    window.alert = null;
+} + ')();';
+var script = document.createElement('script');
+script.textContent = actualCode;
+(document.head||document.documentElement).appendChild(script);
+script.parentNode.removeChild(script);
+ + function injectScript(func) {
+    var actualCode = '(' + func + ')();'
+    ...
+}
+injectScript(function() {
+   alert(""Injected script"");
+});
+ var scriptToInject = function() {
+    console.log(typeof scriptToInject);
+};
+injectScript(scriptToInject);
+// Console output:  ""undefined""
+ var GREETING = ""Hi, I'm "";
+var NAME = ""Rob"";
+var scriptToInject = function() {
+    alert(GREETING = NAME);
+};
+ var scriptToInject = function (GREETING, NAME) { ... };
+var actualCode = '(' + scriptToInject + ')(' + GREETING + ',' + NAME ')';
+// The previous will work for numbers and booleans, but not strings.
+// To see why, have a look at the resulting string:
+var actualCode = ""(function(GREETING, NAME) {...})(Hi I'm,Rob)"";
+//                                                 ^^^^^^ ^^^ No string literals!
+ JSON.stringify var actualCode = '(' + function(greeting, name) { ...
+} + ')(' + JSON.stringify(GREETING) + ',' + JSON.stringify(NAME) + ')';
+ JSON.stringify ...
+} + ')(' + JSON.stringify([arg1, arg2, arg3, arg4]) + ')';
+ "

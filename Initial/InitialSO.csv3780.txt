@@ -1,0 +1,34 @@
+,SOCode
+3780,"function multi_tax_terms($where) {
+    global $wp_query;
+    if ( strpos($wp_query->query_vars['term'], ',') !== false && strpos($where, ""AND 0"") !== false ) {
+        // it's failing because taxonomies can't handle multiple terms
+        //first, get the terms
+        $term_arr = explode("","", $wp_query->query_vars['term']);
+        foreach($term_arr as $term_item) {
+            $terms[] = get_terms($wp_query->query_vars['taxonomy'], array('slug' => $term_item));
+        }
+
+        //next, get the id of posts with that term in that tax
+        foreach ( $terms as $term ) {
+            $term_ids[] = $term[0]->term_id;
+        }
+        
+        $post_ids = get_objects_in_term($term_ids, $wp_query->query_vars['taxonomy']);
+    
+        if ( !is_wp_error($post_ids) && count($post_ids) ) {
+            // build the new query
+            $new_where = "" AND wp_posts.ID IN ("" . implode(', ', $post_ids) . "") "";
+            // re-add any other query vars via concatenation on the $new_where string below here
+            
+            // now, sub out the bad where with the good
+            $where = str_replace(""AND 0"", $new_where, $where);
+        } else {
+            // give up
+        }
+    }
+    return $where;
+}
+
+add_filter(""posts_where"", ""multi_tax_terms"");
+ "

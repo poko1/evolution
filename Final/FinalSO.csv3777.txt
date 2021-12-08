@@ -1,0 +1,13 @@
+,SOCode
+3777,"an IdentifierName that is not a ReservedWord
+ instanceof typeof break do new var case else return void catch finally
+continue for switch while this with debugger function throw default if
+try delete in
+ a letter
+the $ sign
+the _ underscore
+ a number
+a combining diacritical (accent) character
+various joiner punctuation and zero-width spaces
+ [A-Z] Ä ξ 京 \w ^[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*$
+ "

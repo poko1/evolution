@@ -1,0 +1,46 @@
+,SOCode
+3924,"@Override
+protected float getTopFadingEdgeStrength() {
+    if (getChildCount() == 0) {
+        return 0.0f;
+    }
+    return 1.0f;
+}
+
+@Override
+protected float getBottomFadingEdgeStrength() {
+    if (getChildCount() == 0) {
+        return 0.0f;
+    }
+    return 1.0f;
+}
+ @Override
+protected float getTopFadingEdgeStrength() {
+    if (getChildCount() == 0) {
+        return 0.0f;
+    }
+
+    final int length = getVerticalFadingEdgeLength();
+    if (mScrollY < length) {
+        return mScrollY / (float) length;
+    }
+
+    return 1.0f;
+}
+
+@Override
+protected float getBottomFadingEdgeStrength() {
+    if (getChildCount() == 0) {
+        return 0.0f;
+    }
+
+    final int length = getVerticalFadingEdgeLength();
+    final int bottomEdge = getHeight() - mPaddingBottom;
+    final int span = getChildAt(0).getBottom() - mScrollY - bottomEdge;
+    if (span < length) {
+        return span / (float) length;
+    }
+
+    return 1.0f;
+}
+ "

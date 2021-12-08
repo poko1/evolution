@@ -1,0 +1,4 @@
+,SOCode
+3866,"django.db.connection.queries if ""celeryd"" in sys.argv:
+    DEBUG = False
+ "

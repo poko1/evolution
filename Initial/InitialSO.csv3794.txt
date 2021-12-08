@@ -1,0 +1,29 @@
+,SOCode
+3794,"function isValidXmlName($name)
+{
+    try {
+        new DOMElement($name);
+        return TRUE;
+    } catch(DOMException $e) {
+        return FALSE;
+    }
+}
+ var_dump( isValidXmlName('foo') );      // true   valid localName
+var_dump( isValidXmlName(':foo') );     // true   valid localName
+var_dump( isValidXmlName(':b:c') );     // true   valid localName
+var_dump( isValidXmlName('b:c') );      // false  assumes QName
+ function isValidXmlName($name)
+{
+    try {
+        new DOMElement(
+            $name,
+            null,
+            strpos($name, ':') >= 1 ? 'http://example.com' : null
+        );
+        return TRUE;
+    } catch(DOMException $e) {
+        return FALSE;
+    }
+}
+ if(stripos($name, 'xml') === 0) return false;
+ try/catch "

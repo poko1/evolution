@@ -1,0 +1,17 @@
+,SOCode
+5094,"var type = 'start'; // or move, end
+var event = document.createEvent('Event');
+event.initEvent('touch' + type, true, true);     
+event.constructor.name; // Event (not TouchEvent)
+ var point = {x: 10, y: 10 };
+event.touches = [{
+    target: someElement,
+    identifier: Date.now() + i,
+    pageX: point.x,
+    pageY: point.y,
+    screenX: point.x,
+    screenY: point.y,
+    clientX: point.x,
+    clientY: point.y
+}]
+ "

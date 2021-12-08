@@ -1,0 +1,24 @@
+,SOCode
+5088,"__toString() public function __toString()
+{
+    try {
+        // ... do some stuff
+        // and try to return a string
+        $string = $this->doSomeStuff();
+        if (!is_string($string)) {
+            // we must throw an exception manually here because if $value
+            // is not a string, PHP will trigger an error right after the
+            // return statement, thus escaping our try/catch.
+            throw new \LogicException(__CLASS__ . ""__toString() must return a string"");
+        }
+
+        return $string;
+    } catch (\Exception $exception) {
+        $previousHandler = set_exception_handler(function (){
+        });
+        restore_error_handler();
+        call_user_func($previousHandler, $exception);
+        die;
+    }
+}
+ trigger_error echo trigger_error output() __toString() "

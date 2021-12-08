@@ -1,0 +1,14 @@
+,SOCode
+4086,"var checkPermission = function (file, mask, cb){
+    fs.stat (file, function (error, stats){
+        if (error){
+            cb (error, false);
+        }else{
+            cb (null, !!(mask & parseInt ((stats.mode & parseInt (""777"", 8)).toString (8)[0])));
+        }
+    });
+};
+ checkPermission (<path>, 1, cb);
+ checkPermission (<path>, 4, cb);
+ checkPermission (<path>, 2, cb);
+ "

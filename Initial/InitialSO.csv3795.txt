@@ -1,0 +1,18 @@
+,SOCode
+3795,":focus $("".."").is("":focus"") jQuery.expr[':'].focus = function( elem ) {
+  return elem === document.activeElement && ( elem.type || elem.href );
+};
+ (elem.type || elem.href) if ($(""..."").is("":focus"")) {
+  ...
+}
+ $(""input:focus"").doStuff();
+ $(document.activeElement)
+ :focus (function ( $ ) {
+    var filters = $.expr["":""];
+    if ( !filters.focus ) { 
+        filters.focus = function( elem ) {
+           return elem === document.activeElement && ( elem.type || elem.href );
+        };
+    }
+})( jQuery );
+ "

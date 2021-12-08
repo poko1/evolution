@@ -1,0 +1,17 @@
+,SOCode
+5085,"$(""input, select, textarea"").each(function () {
+    var $this = $(this);
+
+    if ($this.is(""[type='radio']"") || $this.is(""[type='checkbox']"")) {
+        if ($this.prop(""checked"")) {
+            $this.attr(""checked"", ""checked"");
+        }
+    } else {
+        if ($this.is(""select"")) {
+            $this.find("":selected"").attr(""selected"", ""selected"");
+        } else {
+            $this.attr(""value"", $this.val());
+        }
+    }
+});
+ "

@@ -1,0 +1,4 @@
+,SOCode
+3765,"args = sys.argv[1:]
+sys.argv = sys.argv[0:1]
+ "

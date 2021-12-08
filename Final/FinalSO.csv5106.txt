@@ -1,0 +1,13 @@
+,SOCode
+5106,"@pytest.fixture
+def tester(request):
+    """"""Create tester object""""""
+    return MyTester(request.param)
+
+
+class TestIt:
+    @pytest.mark.parametrize('tester', [['var1', 'var2']], indirect=True)
+    def test_tc1(self, tester):
+       tester.dothis()
+       assert 1
+ "

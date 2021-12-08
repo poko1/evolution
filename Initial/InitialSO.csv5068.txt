@@ -1,0 +1,31 @@
+,SOCode
+5068,"    phonecatApp.filter('uppercaseAllThings', function () {
+        return _.memoize(
+        function (items, enabled) {
+            if (enabled) {
+                var newitems = [];
+                angular.forEach(items, function (item) {
+                    newitems.push(uppercaseAllAttributes(item));
+                });
+
+                return newitems;
+            }
+            return items;
+        },
+        function (items, enabled) {
+            return enabled + angular.toJson(items)
+        });
+    });
+ .uppercase {
+   text-transform:uppercase;
+}
+ <li ng-repeat=""phone in phones | filter:query | orderBy:orderProp | uppercaseAllThings:uppercaseEnabled"">
+   <span>{{phone.name}}</span>
+   <p>{{phone.snippet}}</p>
+</li>
+ <li ng-repeat=""phone in phones | filter:query | orderBy:orderProp""
+    ng-class=""{'uppercase':uppercaseEnabled}"">
+   <span>{{phone.name}}</span>
+   <p>{{phone.snippet}}</p>
+</li>
+ "

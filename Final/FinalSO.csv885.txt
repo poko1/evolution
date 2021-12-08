@@ -1,0 +1,29 @@
+,SOCode
+885,"f = open(""myfile"", ""rb"")
+try:
+    byte = f.read(1)
+    while byte != """":
+        # Do stuff with byte.
+        byte = f.read(1)
+finally:
+    f.close()
+ with open(""myfile"", ""rb"") as f:
+    byte = f.read(1)
+    while byte != """":
+        # Do stuff with byte.
+        byte = f.read(1)
+ from __future__ import with_statement
+ with open(""myfile"", ""rb"") as f:
+    byte = f.read(1)
+    while byte != b"""":
+        # Do stuff with byte.
+        byte = f.read(1)
+ b"""" with open(""myfile"", ""rb"") as f:
+    byte = f.read(1)
+    while byte:
+        # Do stuff with byte.
+        byte = f.read(1)
+ with open(""myfile"", ""rb"") as f:
+    while (byte := f.read(1)):
+        # Do stuff with byte.
+ "

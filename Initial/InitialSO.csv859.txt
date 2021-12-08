@@ -1,0 +1,17 @@
+,SOCode
+859,"mkdir -p import errno    
+import os
+
+
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+ os.makedirs exist_ok mkdir -p mode OSError pathlib.Path.mkdir import pathlib
+
+pathlib.Path(""/tmp/path/to/desired/directory"").mkdir(parents=True, exist_ok=True)
+ exist_ok "

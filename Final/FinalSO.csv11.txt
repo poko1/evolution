@@ -1,0 +1,14 @@
+,SOCode
+11,"isfile() exists() True isfile() exists() >>> os.path.isfile(""/etc/password.txt"")
+True
+>>> os.path.isfile(""/etc"")
+False
+>>> os.path.isfile(""/does/not/exist"")
+False
+>>> os.path.exists(""/etc/password.txt"")
+True
+>>> os.path.exists(""/etc"")
+True
+>>> os.path.exists(""/does/not/exist"")
+False
+ "

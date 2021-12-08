@@ -1,0 +1,51 @@
+,SOCode
+5104,"public class HyperlinkRedirectListener implements ChangeListener<Worker.State>, EventListener {
+private static final Logger LOGGER = LoggerFactory.getLogger(HyperlinkRedirectListener.class);
+
+private static final String CLICK_EVENT = ""click"";
+private static final String ANCHOR_TAG = ""a"";
+
+private final WebView webView;
+
+public HyperlinkRedirectListener(WebView webView) {
+    this.webView = webView;
+}
+
+@Override
+public void changed(ObservableValue<? extends State> observable, State oldValue, State newValue) {
+    if (State.SUCCEEDED.equals(newValue)) {
+        Document document = webView.getEngine().getDocument();
+        NodeList anchors = document.getElementsByTagName(ANCHOR_TAG);
+        for (int i = 0; i < anchors.getLength(); i++) {
+            Node node = anchors.item(i);
+            EventTarget eventTarget = (EventTarget) node;
+            eventTarget.addEventListener(CLICK_EVENT, this, false);
+        }
+    }
+}
+
+@Override
+public void handleEvent(Event event) {
+    HTMLAnchorElement anchorElement = (HTMLAnchorElement)event.getCurrentTarget();
+    String href = anchorElement.getHref();
+
+    if (Desktop.isDesktopSupported()) {
+        openLinkInSystemBrowser(href);
+    } else {
+        LOGGER.warn(""OS does not support desktop operations like browsing. Cannot open link '{}'."", href);
+    }
+
+    event.preventDefault();
+}
+
+private void openLinkInSystemBrowser(String url) {
+    LOGGER.debug(""Opening link '{}' in default system browser."", url);
+
+    try {
+        URI uri = new URI(url);
+        Desktop.getDesktop().browse(uri);
+    } catch (Throwable e) {
+        LOGGER.error(""Error on opening link '{}' in system browser."", url);
+    }
+}
+ "

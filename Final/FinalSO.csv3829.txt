@@ -1,0 +1,5 @@
+,SOCode
+3829,"-webkit-tap-highlight-color a {
+    -webkit-tap-highlight-color: transparent;
+}
+ "

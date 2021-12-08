@@ -1,0 +1,160 @@
+,SOCode
+3962,"jquery.contextmenu.js jquery.contextmenu.js onContextMenu onShowMenu onContextMenu <div id=""myMenu""><ul></ul></div>
+ createContexMenuFromNavigatorButtons var getSelectedText = function () {
+        var text = '';
+        if (window.getSelection) {
+            text = window.getSelection();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return typeof (text) === 'string' ? text : text.toString();
+    },
+    createContexMenuFromNavigatorButtons = function (grid, pager) {
+        var menuId = 'menu_' + grid[0].id, menuUl = $('<ul>'),
+            menuDiv = $('<div>').attr('id', menuId);
+
+        menuUl.appendTo(menuDiv);
+        menuDiv.appendTo('body');
+
+        grid.contextMenu(menuId, {
+            bindings: {}, // the bindings will be created in the onShowMenu
+            onContextMenu: function (e) {
+                var p = grid[0].p, i, lastSelId, $target = $(e.target),
+                    rowId = $target.closest(""tr.jqgrow"").attr(""id""),
+                    isInput = $target.is(':text:enabled') ||
+                    $target.is('input[type=textarea]:enabled') ||
+                    $target.is('textarea:enabled');
+                if (rowId && !isInput && getSelectedText() === '') {
+                    i = $.inArray(rowId, p.selarrrow);
+                    if (p.selrow !== rowId && i < 0) {
+                        // prevent the row from be unselected
+                        // the implementation is for ""multiselect:false"" which we use,
+                        // but one can easy modify the code for ""multiselect:true""
+                        grid.jqGrid('setSelection', rowId);
+                    } else if (p.multiselect) {
+                        // Edit will edit FIRST selected row.
+                        // rowId is allready selected, but can be not the last selected.
+                        // Se we swap rowId with the first element of the array p.selarrrow
+                        lastSelId = p.selarrrow[p.selarrrow.length - 1];
+                        if (i !== p.selarrrow.length - 1) {
+                            p.selarrrow[p.selarrrow.length - 1] = rowId;
+                            p.selarrrow[i] = lastSelId;
+                            p.selrow = rowId;
+                        }
+                    }
+                    return true;
+                } else {
+                    return false; // no contex menu
+                }
+            },
+            onShowMenu: function (e, $menu) {
+                var options = this, $menuUl = $menu.find('ul:first').empty();
+
+                $('table.navtable .ui-pg-button', pager).each(function () {
+                    var $spanIcon, text, $td, id, $li, $a, button,
+                        $div = $(this).children('div.ui-pg-div:first'),
+                        gridId = grid[0].id;
+
+                    if ($div.length === 1) {
+                        text = $div.text();
+                        $td = $div.parent();
+                        if (text === '') {
+                            text = $td.attr('title');
+                        }
+                        if (this.id !== '' && text !== '') {
+                            id = 'menuitem_' + this.id;
+                            if (id.length > gridId.length + 2) {
+                                id = id.substr(0, id.length - gridId.length - 1);
+                            }
+                        } else {
+                            // for custom buttons
+                            id = $.jgrid.randId();
+                        }
+                        $li = $('<li>').attr('id', id);
+                        $spanIcon = $div.children('span.ui-icon');
+                        if ($spanIcon.length > 0) {
+                            // standard navGrid button or button added by navButtonAdd
+                            $li.append($('<a>')
+                                .text(text)
+                                .prepend($spanIcon.clone().css({
+                                    float: 'left',
+                                    marginRight: '0.5em'
+                                })));
+                            $menuUl.append($li);
+                            options.bindings[id] = (function ($button) {
+                                return function () { $button.click(); };
+                            }($div));
+                        } else {
+                            button = $div.children(""input"").data(""button"");
+                            if (button !== undefined) {
+                                $a = $('<a>')
+                                    .text(button.options.label)
+                                    .prepend(
+                                        $('<label>').addClass(""ui-corner-all"").css({
+                                            float: 'left',
+                                            width: '16px',
+                                            borderWidth: '0px',
+                                            marginRight: '0.5em'//'4px'
+                                        }).append(
+                                            $('<span>').addClass(""ui-button-icon-primary ui-icon "" +
+                                                button.options.icons.primary)
+                                                .css({
+                                                    float: 'left',
+                                                    marginRight: '0.5em'
+                                                })
+                                        )
+                                    );
+                                $li.append($a);
+                                if (button.type === ""checkbox"" && button.element.is(':checked')) {
+                                    $a.find('label:first').addClass(""ui-state-active"");
+                                }
+                                $menuUl.append($li);
+                                options.bindings[id] = (function ($button, isCheckbox) {
+                                    if (isCheckbox) {
+                                        return function () {
+                                            if ($button.is(':checked')) {
+                                                $button.siblings('label').removeClass(""ui-state-active"");
+                                            } else {
+                                                $button.siblings('label').addClass(""ui-state-active"");
+                                            }
+                                            $button.click();
+                                            $button.button(""refresh""); // needed for IE7-IE8
+                                    };
+                                    } else {
+                                        return function () { $button.click(); };
+                                    }
+                                }(button.element, button.type === ""checkbox""));
+                            }
+                        }
+                    }
+                });
+                return $menu;
+            }
+        });
+    },
+    autoedit = false;
+ $(""#pager_left table.navtable tbody tr"").append(
+    '<td class=""ui-pg-button ui-corner-all"">' +
+        '<div class=""ui-pg-div my-nav-checkbox"">' +
+        '<input tabindex=""-1"" type=""checkbox"" id=""AutoEdit"" />' +
+        '<label title=""Checkx caption which should appear as button tooltip""' +
+        ' for=""AutoEdit"">Autoedit</label></div></td>'
+);
+$(""#AutoEdit"").button({
+    text: false,
+    icons: {primary: ""ui-icon-mail-closed""}
+}).click(function () {
+    var iconClass, $this = $(this);
+    if (!autoedit) { // $this.is(':checked')) {
+        autoedit = true;
+        iconClass = ""ui-icon-mail-open"";
+    } else {
+        autoedit = false;
+        iconClass = ""ui-icon-mail-closed"";
+    }
+    $this.button(""option"", {icons: {primary: iconClass}});
+});
+createContexMenuFromNavigatorButtons($grid, '#pager');
+ normalizePagers "

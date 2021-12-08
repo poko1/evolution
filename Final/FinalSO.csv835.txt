@@ -1,0 +1,12 @@
+,SOCode
+835,"str1 = ""pattern""
+var re = new RegExp(str1, ""g"");
+""pattern matching ."".replace(re, ""regex"");
+ ""regex matching ."" ""."" ""pattern matching regex"" ""regex"" regexregexregexregexregexregexregexregexregexregexregexregexregexregexregexregexregexregex
+ "".""  RegExp.quote = function(str) {
+     return str.replace(/([.?*+^$[\]\\(){}|-])/g, ""\\$1"");
+ };
+ str1 = "".""
+var re = new RegExp(RegExp.quote(str1), ""g"");
+""pattern matching ."".replace(re, ""regex"");
+ ""pattern matching regex"" "

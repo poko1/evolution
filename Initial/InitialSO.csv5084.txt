@@ -1,0 +1,14 @@
+,SOCode
+5084,"btoa(unescape(encodeURIComponent(str)))
+  var imgsrc = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(markup)));
+ var img = new Image(1, 1); // width, height values are optional params 
+ img.src = imgsrc;
+ var str2 = decodeURIComponent(escape(window.atob(b64)));
+console.log(str2);
+ var str = ""äöüÄÖÜçéèñ"";
+var b64 = window.btoa(unescape(encodeURIComponent(str)))
+console.log(b64);
+
+var str2 = decodeURIComponent(escape(window.atob(b64)));
+console.log(str2);
+ "

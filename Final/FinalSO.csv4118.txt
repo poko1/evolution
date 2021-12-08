@@ -1,0 +1,12 @@
+,SOCode
+4118,"jsonify @app.route(""/summary"")
+def summary():
+    d = make_summary()
+    return d
+ jsonify from flask import jsonify
+
+@app.route(""/summary"")
+def summary():
+    d = make_summary()
+    return jsonify(d)
+ "

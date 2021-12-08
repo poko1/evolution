@@ -1,0 +1,6 @@
+,SOCode
+3778,"<script src=""http://www.google.com/NOTFOUND.js"" onreadystatechange=""alert(this.readyState)"">
+ <script src=""http://yourdomain.com/declare_foo.js""></script>
+<script>if (typeof foo == ""undefined"") {alert ('error loading script');}</script>
+ var foo = 'Script loaded successfully';
+ "

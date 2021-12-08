@@ -1,0 +1,44 @@
+,SOCode
+5067,"function findClientsSocket(roomId, namespace) {
+    var res = []
+    , ns = io.of(namespace ||""/"");    // the default namespace is ""/""
+
+    if (ns) {
+        for (var id in ns.connected) {
+            if(roomId) {
+                var index = ns.connected[id].rooms.indexOf(roomId) ;
+                if(index !== -1) {
+                    res.push(ns.connected[id]);
+                }
+            } else {
+                res.push(ns.connected[id]);
+            }
+        }
+    }
+    return res;
+}
+ // var clients = io.sockets.clients();
+// becomes : 
+var clients = findClientsSocket() ;
+
+// var clients = io.sockets.clients('room'); // all users from room `room`
+// becomes
+var clients = findClientsSocket('room') ;
+ // var clients = io.of('/chat').clients();
+// becomes
+var clients = findClientsSocket(null, '/chat') ;
+
+// var clients = io.of('/chat').clients('room'); // all users from room `room`
+// becomes
+var clients = findClientsSocket('room', '/chat') ;
+ function findClientsSocketByRoomId(roomId) {
+var res = []
+, room = io.sockets.adapter.rooms[roomId];
+if (room) {
+    for (var id in room) {
+    res.push(io.sockets.adapter.nsp.connected[id]);
+    }
+}
+return res;
+}
+ "

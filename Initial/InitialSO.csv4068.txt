@@ -1,0 +1,25 @@
+,SOCode
+4068,"import argparse
+import os
+import tempfile
+import shutil
+import atexit
+
+class readable_dir(argparse.Action):
+    def __call__(self,parser, namespace, values, option_string=None):
+        prospective_dir=values
+        if not os.path.isdir(prospective_dir):
+            raise argparse.ArgumentTypeError(""readable_dir:{0} is not a valid path"".format(prospective_dir))
+        if os.access(prospective_dir, os.R_OK):
+            setattr(namespace,self.dest,prospective_dir)
+        else:
+            raise argparse.ArgumentTypeError(""readable_dir:{0} is not a readable dir"".format(prospective_dir))
+        
+ldir = tempfile.mkdtemp()
+atexit.register(lambda dir=ldir: shutil.rmtree(ldir))
+
+parser = argparse.ArgumentParser(description='test', fromfile_prefix_chars=""@"")
+parser.add_argument('-l', '--launch_directory', action=readable_dir, default=ldir)
+args = parser.parse_args()
+print (args)
+ tempfile tempfile "

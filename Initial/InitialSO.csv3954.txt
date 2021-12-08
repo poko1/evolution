@@ -1,0 +1,32 @@
+,SOCode
+3954,"import numpy as np
+n=4
+m=5
+a = np.arange(1,n*m+1).reshape(n,m)
+print(a)
+# [[ 1  2  3  4  5]
+#  [ 6  7  8  9 10]
+#  [11 12 13 14 15]
+#  [16 17 18 19 20]]
+sz = a.itemsize
+h,w = a.shape
+bh,bw = 2,2
+shape = (h/bh, w/bw, bh, bw)
+print(shape)
+# (2, 2, 2, 2)
+
+strides = sz*np.array([w*bh,bw,w,1])
+print(strides)
+# [40  8 20  4]
+
+blocks=np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
+print(blocks)
+# [[[[ 1  2]
+#    [ 6  7]]
+#   [[ 3  4]
+#    [ 8  9]]]
+#  [[[11 12]
+#    [16 17]]
+#   [[13 14]
+#    [18 19]]]]
+ 1 a blocks[0,0,0,0] 2 blocks[0,0,0,1] a.itemsize strides = (10,2,5,1)*a.itemsize = (40,8,20,4) 1 6 blocks[0,0,1,0] w strides 1 3 blocks[0,1,0,0] bw strides 1 11 blocks[1,0,0,0] w*bh strides = (40,8,20,4) "

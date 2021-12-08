@@ -1,0 +1,40 @@
+,SOCode
+5086,"hh:mm:ss ss mm:ss maxDigits 10:30:40 010030040 maxDigits 3 $(function () {
+
+    // change maxDigits to 4, if values go > 999
+    // or to 5 for values > 9999, etc.
+    var maxDigits = 3;
+
+    $.tablesorter.addParser({
+        id: ""times"",
+        is: function (s) {
+            return false;
+        },
+        format: function (s) {
+            // prefix contains leading zeros that are tacked
+            var prefix = new Array(maxDigits + 1).join('0'),
+                // split time into blocks
+                blocks = s.split(/\s*:\s*/),
+                len = blocks.length,
+                result = [];
+            // add values in reverse, so if there is only one block
+            // (e.g. ""10""), then it would be the time in seconds
+            while (len) {
+                result.push((prefix + (blocks[--len] || 0)).slice(-maxDigits));
+            }
+            // reverse the results and join them
+            return result.length ? result.reverse().join('') : s;
+        },
+        type: ""text""
+    });
+
+    $('table').tablesorter({
+        theme: 'blue',
+        headers: {
+            3: {
+                sorter: 'times'
+            }
+        }
+    });
+});
+ 10y 30d 6h 10m "

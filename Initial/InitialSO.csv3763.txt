@@ -1,0 +1,89 @@
+,SOCode
+3763,"abcde caebd a b c d e k    h[k] w[k]    
+
+0    1    1  
+1    2    2    
+2    3    6    
+3    4    24   
+...  ...  ...
+n-1  n    n!  
+ int number = 42;
+int base = 2;
+int[] bits = new int[n];
+
+for (int k = 0; k < bits.Length; k++)
+{
+    bits[k] = number % base;
+    number = number / base;
+}
+ int n = 5;
+int number = 37;
+
+int[] sequence = new int[n - 1];
+int base = 2;
+
+for (int k = 0; k < sequence.Length; k++)
+{
+    sequence[k] = number % base;
+    number = number / base;
+
+    base++; // b[k+1] = b[k] + 1
+}
+ sequence {1, 0, 2, 1} int n = 5;
+int[] sequence = new int[] { 1, 2, 0, 1, 0 };
+char[] list = new char[] { 'a', 'b', 'c', 'd', 'e' };
+char[] permuted = new char[n];
+bool[] set = new bool[n];
+
+for (int i = 0; i < n; i++)
+{
+    int s = sequence[i];
+    int remainingPosition = 0;
+    int index;
+
+    // Find the s'th position in the permuted list that has not been set yet.
+    for (index = 0; index < n; index++)
+    {
+        if (!set[index])
+        {
+            if (remainingPosition == s)
+                break;
+
+            remainingPosition++;
+        }
+    }
+
+    permuted[index] = list[i];
+    set[index] = true;
+}
+ abcde caebd int[] permutation = new int[] { 1, 3, 0, 4, 2 };
+
+char[] list = new char[] { 'a', 'b', 'c', 'd', 'e' };
+char[] permuted = new char[n];
+
+for (int i = 0; i < n; i++)
+{
+    permuted[permutation[i]] = list[i];
+}
+ for (int i = 0; i < n; i++)
+{
+    list[i] = permuted[permutation[i]];
+}
+ int[] identity = new int[] { 0, 1, 2, 3, 4 };
+int[] inverted = { 2, 0, 4, 1, 3 };
+int[] normal = new int[n];
+
+for (int i = 0; i < n; i++)
+{
+    normal[identity[i]] = list[i];
+}
+ char[] list = new char[] { 'a', 'b', 'c', 'd', 'e' };
+char[] permuted = new char[n];
+
+int[] inverted = { 2, 0, 4, 1, 3 };
+
+for (int i = 0; i < n; i++)
+{
+    permuted[i] = list[inverted[i]];
+}
+ "

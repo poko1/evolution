@@ -1,0 +1,15 @@
+,SOCode
+3748,"def page_query(q):
+    offset = 0
+    while True:
+        r = False
+        for elem in q.limit(1000).offset(offset):
+           r = True
+           yield elem
+        offset += 1000
+        if not r:
+            break
+
+for item in page_query(Session.query(Picture)):
+    print item
+ "

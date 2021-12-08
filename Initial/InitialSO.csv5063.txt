@@ -1,0 +1,20 @@
+,SOCode
+5063,"public Bitmap drawBitmap(String text){
+    Bitmap b = Bitmap.createBitmap(BITMAP_WIDTH, BITMAP_HEIGHT, Bitmap.Config.ALPHA_8);
+    Canvas c = new Canvas(b);
+    c.drawText(text, 0, BITMAP_HEIGHT / 2, paint);
+    return b;
+}
+
+public byte[] getPixels(Bitmap b) {
+    ByteBuffer buffer = ByteBuffer.allocate(b.getByteCount());
+    b.copyPixelsToBuffer(buffer);
+    return buffer.array();
+}
+public boolean isCharacterMissingInFont(String ch) {
+    String missingCharacter = ""\u0978""; // reserved code point in the devanagari block (should not exist).
+    byte[] b1 = getPixels(drawBitmap(ch));
+    byte[] b2 = getPixels(drawBitmap(missingCharacter));
+    return Arrays.equals(b1, b2);
+}
+ isCharacterMissing missingCharacter "

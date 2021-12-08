@@ -1,0 +1,10 @@
+,SOCode
+3814,"typeof ReferenceError ""undefined"" if (typeof ModuleName != 'undefined') {
+  //...
+}
+ this if this.ModuleName (function () { return this; }()); this undefined Function var global = Function('return this')();
+ Function 'use strict' eval ""use strict"";
+var get = eval;
+var global = get(""this"");
+ eval eval var isStrictSupported = (function () { ""use strict""; return !this; })();
+ "

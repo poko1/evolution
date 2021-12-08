@@ -1,0 +1,3 @@
+,SOCode
+15,"start """" ""c:\program files\Microsoft Virtual PC\Virtual PC.exe"" -pc JSTYONS-DELPHI -launch
+ "

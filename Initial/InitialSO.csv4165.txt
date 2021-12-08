@@ -1,0 +1,6 @@
+,SOCode
+4165,"getLanguageNativeName(""cv""); // --> ""чӑваш чӗлхи""
+getLanguageName(""cv""); // --> ""Chuvash""
+getLanguageNativeName(""cv-RU""); // --> ""чӑваш чӗлхи""
+getLanguageName(""cv-RU""); // --> ""Chuvash""
+ "

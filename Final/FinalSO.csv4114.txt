@@ -1,0 +1,26 @@
+,SOCode
+4114,"'someProperty' in anObject true false TypeError true 'someProperty' in anObject false 'someProperty' in anObject TypeError 'someProperty' in anObject anObject 'someProperty' in anObject anObject.someProperty !== undefined anObject.hasOwnProperty('someProperty'); console.log(document.body.tagName);
+// BODY
+
+console.log(document.body.hasOwnProperty('tagName'));
+// false, it's inherited
+
+console.log('tagName' in document.body);
+// true, it does have the property
+
+document.body.wobbles = undefined;
+// new property added to document.body
+
+console.log('wobbles' in document.body);
+// true, it does have the property
+
+console.log(document.body.wobbles !== undefined);
+// false, the value really IS undefined
+ function hasProperty(prop, obj) {
+    try {
+        return prop in obj;
+    } catch(e) {
+        return e;
+    }
+}
+ "

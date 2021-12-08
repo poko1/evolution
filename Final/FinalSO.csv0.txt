@@ -1,0 +1,24 @@
+,SOCode
+0,"Object.keys() var size = Object.keys(myObj).length;
+ Object.keys() Object.keys Object.getOwnPropertyNames Object.getOwnPropertySymbols var person = {
+  [Symbol('name')]: 'John Doe',
+  [Symbol('age')]: 33,
+  ""occupation"": ""Programmer""
+};
+
+const propOwn = Object.getOwnPropertyNames(person);
+console.log(propOwn.length); // 1
+
+let propSymb = Object.getOwnPropertySymbols(person);
+console.log(propSymb.length); // 2 Object.size = function(obj) {
+  var size = 0,
+    key;
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) size++;
+  }
+  return size;
+};
+
+// Get the size of an object
+const myObj = {}
+var size = Object.size(myObj); "

@@ -1,0 +1,16 @@
+,SOCode
+4116,"infoWindow.close() null infoWindow.open(map, [anchor]) Map function isInfoWindowOpen(infoWindow){
+    var map = infoWindow.getMap();
+    return (map !== null && typeof map !== ""undefined"");
+}
+
+if (isInfoWindowOpen(infoWindow)){
+    // do something if it is open
+} else {
+    // do something if it is closed
+}
+ isOpen() InfoWindow prototype google.maps.InfoWindow.prototype.isOpen = function(){
+    var map = this.getMap();
+    return (map !== null && typeof map !== ""undefined"");
+}
+ "

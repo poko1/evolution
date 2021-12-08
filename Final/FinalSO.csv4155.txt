@@ -1,0 +1,10 @@
+,SOCode
+4155,"9 setLevel(50) import logging
+DEBUG_LEVELV_NUM = 9 
+logging.addLevelName(DEBUG_LEVELV_NUM, ""DEBUGV"")
+def debugv(self, message, *args, **kws):
+    if self.isEnabledFor(DEBUG_LEVELV_NUM):
+        # Yes, logger takes its '*args' as 'args'.
+        self._log(DEBUG_LEVELV_NUM, message, args, **kws) 
+logging.Logger.debugv = debugv
+ class Logger logging.__init__.py "
