@@ -28,25 +28,28 @@ The project scripts are all written in Python 3 using Jupyter Notebook. Make sur
 Run the SQL codes from the file ‘RQ1.txt’ on top of the sotorrent dataset using Google Big Query to get the results.
 
 ## RQ2: How are SO code snippets reused & evolved on Git?
-  * Data merge and extraction:
+  * ### Data merge and extraction:
     * Merge all the CommitDB files under each of the worker files (in GHCodeSnippetHistory repo) into one file called CommitDBMerged.
     * Run the script ‘First Commit Date.ipynb’ to produce the file ‘FirstCommitDB.csv’ which contains the date of only the first commit that had introduced the reference to the Stack Overflow post.
     * Filter out the rows that do not have a PostType=2 from ‘FirstCommitDB.csv’ file.
     * Follow the instructions and run the SQL commands written on RQ2.txt using Google Big Query.
     * Remove duplicates from the generated csv file 'file_found.csv' by running ‘remove duplicates.ipynb’ script. It produces the file 'InitialwithSOCodeandGitCode.csv'. Delete the first column.
-  * Initial/Referred Version Extraction:
+    
+  * ### Initial/Referred Version Extraction:
     * Run 'Initial SOCode.ipynb' script on 'InitialwithSOCodeandGitCode.csv' to get the body of the version of SO posts when they were referrenced. Remove rows where SOCode is empty.
     * Run 'Initial GitCode.ipynb' script on 'InitialwithSOCodeandGitCode.csv' to get body of initial version of git code. Remove rows where GitCode is empty.
-  * Final Version Extraction:
+    
+  * ### Final Version Extraction:
     * Rename 'InitialwithSOCodeandGitCode.csv' to 'FinalwithSOCodeandGitCode.csv' and remove the columns SOCode and GitCode.
     * Run 'Final SOCode.ipynb' script on FinalwithSOCodeandGitCode.csv to get body of the final version of SO posts. Remove rows where SOCode is empty.
     * Run 'Final GitCode.ipynb' script on FinalwithSOCodeandGitCode.csv to get body of final version of git code. Remove rows where GitCode is empty.
-  * Trimming:
+    
+  * ### Trimming:
     * Now we need to make sure that both the files have the same number of rows and referring to the same git projects, repositories, post id’s etc. and the only thing that is different between them is the SOCode and GitCode column (initial vs final versions).
 For this, you can run sql on Google big query or write a script. We used the free version of Google Big Query and had to divide it into multiple chunks to do so.
-  * Generating .txt code files:
-    * To reproduce the text file pairs that are present inside the ‘Initial’ Folder, rename InitialwithSOCodeandGitCode.csv to InitialSO.csv and run the script ‘convert to file InitialGit’. Make sure to change the path to the directory that has your InitialSO.csv which should also be the directory where you want the script to generate the .txt file pairs.
-    * Next, rename ‘InitialSO.csv’ to ‘InitialGit.csv’ and run the script ‘convert to file InitialSO’.
+
+  * ### Generating .txt code files:
+    * To reproduce the text file pairs that are present inside the ‘Initial’ Folder, rename InitialwithSOCodeandGitCode.csv to InitialSO.csv and run the script ‘convert to file InitialGit’. Make sure to change the path to the directory that has your InitialSO.csv which should also be the directory where you want the script to generate the .txt file pairs. Next, rename ‘InitialSO.csv’ to ‘InitialGit.csv’ and run the script ‘convert to file InitialSO’.
     * Similar steps need to be taken to generate the text file pairs present inside ‘Final’ Folder. Rename FinalSOGit.csv to FinalwithSOCodeandGitCode.csv and run the script ‘convert to file FinalSO’. Make sure to change the path to the directory that has your FinalSO.csv which should also be the directory where you want the script to generate the .txt file pairs. Similarly, rename ‘FinalSO.csv’ to ‘FinalGit.csv’ and run the script ‘convert to file FinalGit’.
 
 ## Disclaimer:
