@@ -5,7 +5,7 @@ Finds out if duplicate codes exist in Git projects that explicitly reference Sta
 * Sotorrent Dataset (24/Jan/2020) (https://console.cloud.google.com/bigquery?project=sotorrent-org&p=sotorrent-org&d=2020_12_31&page=dataset)
 * GHCodeSnippetHistory (https://github.com/manessaraj/GHCodeSnippetHistory)
 
-## Available Commands
+## Instructions
 The project scripts are all written in Python 3 using Jupyter Notebook. Make sure you have Jupyter Notebook installed and then download all the scripts in the same directory. When running any scripts on a file, make sure that file is also in the same directory unless told otherwise. For detecting duplicates between files, it uses SIMIAN which can be downloaded from here: https://www.harukizaemon.com/simian/installation.html
 
 ### Detecting duplicates between initial/referred version of Stack Overflow and Git code files:
@@ -51,7 +51,14 @@ Run the SQL codes from the file ‘RQ1.txt’ on top of the sotorrent dataset us
     * To reproduce the text file pairs that are present inside the ‘Initial’ Folder, rename InitialwithSOCodeandGitCode.csv to InitialSO.csv and run the script ‘convert to file InitialGit’. Make sure to change the path to the directory that has your InitialSO.csv which should also be the directory where you want the script to generate the .txt file pairs. Next, rename ‘InitialSO.csv’ to ‘InitialGit.csv’ and run the script ‘convert to file InitialSO’.
     * Similar steps need to be taken to generate the text file pairs present inside ‘Final’ Folder. Rename FinalSOGit.csv to FinalwithSOCodeandGitCode.csv and run the script ‘convert to file FinalSO’. Make sure to change the path to the directory that has your FinalSO.csv which should also be the directory where you want the script to generate the .txt file pairs. Similarly, rename ‘FinalSO.csv’ to ‘FinalGit.csv’ and run the script ‘convert to file FinalGit’.
 
-## Disclaimer:
+## Details on Files Upload:
+The InitialwithSOCodeandGitCode.csv and FinalwithSOCodeandGitCode.csv files were used to generate the text files for the Initial and Final folder. Upon running SIMIAN, initial_result.csv and final_result.csv were produced. But to be more accurate, we then ran a script and some excel formulae to detect the forked projects and identified git code files which were present in multiple repositories. Upon filtering those out and only considering unique git code files, we reran SIMIAN and came up with final_change_trim.csv and initial_change_trim.csv files- the result of which were presented in the paper.
+
+The file 'Examples.pdf' contains screenshots and file names for which duplicates were found. 
+
+The file 'final with no duplicates.txt' contains list of files whose initial versions had duplicate lines but final versions no longer had any duplicates between them due to changes made in SO post and none reflected on git code.
+
+## Disclaimer
 Since there is a lot of back and forth between scripts, trimming/filtering and sql query, the dataset we have might not be exactly what is reproduced. A few rows here and there might not match but it will more or less be the same. A few scripts and excel formulae were used here and there for sorting and filtering purposes.
 
 **Maliha Sultana**
